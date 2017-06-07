@@ -1,0 +1,40 @@
+<div class="card">
+  <div class="card-block">
+    <h4 class="card-title">{{device.nodeInfo.manufacturer}} {{device.nodeInfo.product}}</h4>
+    <!--<p class="card-text"></p>-->
+  </div>
+
+  <ul class="list-group list-group-flush">
+    <ng-container *ngFor="let valueName of valuesKeys();">
+      <li class="list-group-item">
+
+        <ng-container *ngIf="device.values[valueName].type == 'select'">
+          <select style="width: 100%" class="custom-select" [(ngModel)]="device.values[valueName].value" (ngModelChange)="setValue(valueName, $event)">
+            <option *ngFor="let option of device.values[valueName].values; let i = index;" [ngValue]="option">{{option}}</option>
+          </select>
+        </ng-container>
+
+        <ng-container *ngIf="device.values[valueName].type == 'color'">
+          <app-color-picker-modal style="width: 100%" [id]="'color-' + device.nodeId" [color]="device.values[valueName].value" (submitted)="setValue(valueName, $event)"></app-color-picker-modal>
+        </ng-container>
+
+      </li>
+    </ng-container>
+  </ul>
+
+  <div class="card-footer">
+
+    <div class="row">
+      <div class="col-4">
+        <button style="width: 100%" type="button" class="btn btn-secondary"><i class="fa fa-music" aria-hidden="true"></i></button>
+      </div>
+      <div class="col-4">
+        <button style="width: 100%" type="button" class="btn btn-primary"><i class="fa fa-refresh" aria-hidden="true"></i></button>
+      </div>
+      <div class="col-4">
+        <button style="width: 100%" type="button" class="btn btn-danger" (click)="deleteRoom(i)"><i class="fa fa-trash" aria-hidden="true"></i></button>
+      </div>
+    </div>
+
+  </div>
+</div>

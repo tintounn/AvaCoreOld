@@ -1,0 +1,18 @@
+{
+  "orm": {
+    "dialect": "mysql",
+    "user": "root",
+    "password": "",
+    "port": 3306,
+    "database": "ava",
+    "host": "localhost"
+  },
+  "http": {
+    "port": 8080
+  },
+  "admin": {
+    "code": "1111"
+  },
+  "zwave": "/dev/ttyACM0",
+  "secret": "secrethash"
+}

@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-12 col-md-8">
+    <h3>NAS</h3>
+    <file-manager #fileManager (folderChange)="folderChanged($event)"></file-manager>
+  </div>
+
+
+  <div class="col-12 col-md-4">
+    <h3>Telechargement</h3>
+    <nav class="breadcrumb">
+      <div class="row">
+        <div class="col-8">
+          <input type="text" class="form-control" name="url" [(ngModel)]="url" placeholder="Url du fichier">
+        </div>
+        <div class="col-4">
+          <button type="button" class="btn btn-secondary" (click)="download()"><i class="fa fa-download" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="list-group">
+      <ng-container *ngFor="let download of downloads; let i = index;">
+
+        <a class="list-group-item list-group-item-action"> 
+          <div class="d-flex w-100 justify-content-between">
+            <p class="mb-1"><i class="fa fa-file" aria-hidden="true"></i>{{download.name}}</p>
+            <small>{{download.size}}</small>
+          </div>
+
+          <div [style]="getProgressionStyle(i)"></div>
+        </a>
+
+      </ng-container>
+    </div>
+
+  </div>
+</div>

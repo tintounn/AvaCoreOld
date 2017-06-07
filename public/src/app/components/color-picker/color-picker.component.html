@@ -1,0 +1,11 @@
+<div class="row">
+  <input class="col-12" type="range" (ngModelChange)="onColorChange($event)" [(ngModel)]="rgbColor.r" min="0" max="255" />
+</div>
+
+<div class="row">
+  <input class="col-12" type="range" (ngModelChange)="onColorChange($event)" [(ngModel)]="rgbColor.g" min="0" max="255" />
+</div>
+
+<div class="row">
+  <input class="col-12" type="range" (ngModelChange)="onColorChange($event)" [(ngModel)]="rgbColor.b" min="0" max="255" />
+</div>

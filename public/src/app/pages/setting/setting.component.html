@@ -1,0 +1,103 @@
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" href="#common" role="tab">Commun</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#zwave" role="tab">Zwave</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#nas" role="tab">NAS</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#api" role="tab">API</a>
+  </li>
+</ul>
+
+<div class="tab-content" style="margin-top: 10px;">
+  <div class="tab-pane active" id="common" role="tabpanel">
+    <ng-container *ngIf="common">
+      <form class="col-8 offset-2">
+
+        <div class="form-group">
+          <label for="admin">Code admin</label>
+          <input type="text" [(ngModel)]="common.code" class="form-control" name="code">
+        </div>
+        <div class="form-group">
+          <label for="location">Location</label>
+          <input type="text" [(ngModel)]="common.location" class="form-control" name="location">
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col col-6">
+            <button (click)="saveConfig('common', common)" style="width: 100%;" type="button" class="btn btn-primary">Enregistrer</button>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+  </div>
+
+  <div class="tab-pane" id="zwave" role="tabpanel">
+
+  </div>
+
+  <div class="tab-pane" id="nas" role="tabpanel">
+    <ng-container *ngIf="nas">
+      <form class="col-8 offset-2">
+
+        <div class="form-group">
+          <label for="root">Repertoire racine</label>
+          <input type="text" [(ngModel)]="nas.root" class="form-control" name="root">
+        </div>
+        <div class="form-group">
+          <label for="image">Images</label>
+          <input type="text" [(ngModel)]="nas.images" class="form-control" name="image">
+        </div>
+        <div class="form-group">
+          <label for="video">Videos</label>
+          <input type="text" [(ngModel)]="nas.movies" class="form-control" name="video">
+        </div>
+        <div class="form-group">
+          <label for="musique">Musiques</label>
+          <input type="text" [(ngModel)]="nas.musics" class="form-control" name="musique">
+        </div>
+        <div class="form-group">
+          <label for="game">Jeux</label>
+          <input type="text" [(ngModel)]="nas.games" class="form-control" name="game">
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col col-6">
+            <button (click)="saveConfig('nas', nas)" style="width: 100%;" type="button" class="btn btn-primary">Enregistrer</button>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+  </div>
+
+  <div class="tab-pane" id="api" role="tabpanel">
+    <ng-container *ngIf="api">
+      <form class="col-8 offset-2">
+
+        <div class="form-group">
+          <label for="openweather">OpenWeather</label>
+          <input type="text" [(ngModel)]="api.openweather" class="form-control" name="openweather">
+        </div>
+        <div class="form-group">
+          <label for="youtube">Youtube</label>
+          <input type="text" [(ngModel)]="api.youtube" class="form-control" name="youtube">
+        </div>
+        <div class="form-group">
+          <label for="twitch">Twitch</label>
+          <input type="text" [(ngModel)]="api.twitch" class="form-control" name="twitch">
+        </div>
+
+        <div class="row justify-content-center">
+          <div class="col col-6">
+            <button (click)="saveConfig('api', api)" style="width: 100%;" type="button" class="btn btn-primary">Enregistrer</button>
+          </div>
+        </div>
+      </form>
+    </ng-container>
+  </div>
+  
+</div>

@@ -1,0 +1,18 @@
+<div class="jumbotron">
+  <h1 class="display-3">Appareils</h1>
+  <p class="lead">les objects connectés de la maison</p>
+  <hr class="my-4">
+</div>
+
+<select class="custom-select" [(ngModel)]="selectedRoom" (ngModelChange)="getDevices($event)">
+  <option [ngValue]="null" selected>Orphelins</option>
+  <option *ngFor="let room of rooms; let i = index;" [ngValue]="room">{{room.name}}</option>
+</select>
+
+<div class="card-deck">
+  <ng-container *ngFor="let device of devices; let i = index;">
+
+    <app-device-card [device]="device"></app-device-card>
+
+  </ng-container>
+</div>
