@@ -1,4 +1,4 @@
-const ZwaveObject = require('../class/ZwaveObject');
+//const ZwaveObject = require('../class/ZwaveObject');
 
 class HomeService {
   constructor() {

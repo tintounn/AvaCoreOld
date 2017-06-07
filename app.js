@@ -9,7 +9,7 @@ const includeAll = require('include-all');
 const Database = require('./database');
 const Jwt = require('./jwt');
 const Tools = require('./tools');
-const ZwaveGateway = require('./app/gateways/ZwaveGateway');
+//const ZwaveGateway = require('./app/gateways/ZwaveGateway');
 
 class App {
   constructor() {
@@ -46,7 +46,7 @@ class App {
       this.jwt = new Jwt();
       this.tools = Tools;
       this.root = __dirname;
-      this.zwaveGateway = new ZwaveGateway(this.config, __dirname);
+      //this.zwaveGateway = new ZwaveGateway(this.config, __dirname);
       resolve();
     });
   }
