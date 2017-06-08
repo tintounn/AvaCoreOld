@@ -185,7 +185,7 @@ class App {
   }
 
   initFinalSteps() {
-    this.zwaveGateway.listen();
+    //this.zwaveGateway.listen();
 
     return new Promise((resolve, reject) => {
       Room.findAll().then((rooms) => {

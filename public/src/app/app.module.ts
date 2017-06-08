@@ -9,6 +9,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { RequestService } from './services/request.service';
 import { SessionService } from './services/session.service';
 import { SocketService } from './services/socket.service';
+import { GoogleMapService } from './services/google-map.service';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
@@ -33,6 +34,7 @@ import { DevicesComponent } from './pages/device/devices.component';
 import { DeviceCardComponent } from './components/device-card/device-card.component';
 import { ColorPickerComponent } from './components/color-picker/color-picker.component';
 import { ColorPickerModalComponent } from './components/color-picker-modal/color-picker-modal.component';
+import { MapComponent } from './components/map/map.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,8 @@ import { ColorPickerModalComponent } from './components/color-picker-modal/color
     DevicesComponent,
     DeviceCardComponent,
     ColorPickerComponent,
-    ColorPickerModalComponent
+    ColorPickerModalComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,7 @@ import { ColorPickerModalComponent } from './components/color-picker-modal/color
     SimpleNotificationsModule.forRoot(),
     AppRoutingModule,
   ],
-  providers: [RequestService, SessionService, SocketService, RoomFactory, AlarmFactory, FilesFactory, DeviceFactory],
+  providers: [RequestService, SessionService, SocketService, GoogleMapService, RoomFactory, AlarmFactory, FilesFactory, DeviceFactory],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

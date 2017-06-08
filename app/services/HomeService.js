@@ -39,7 +39,7 @@ class HomeService {
   launch(rooms) {
     this.addRooms(rooms);
 
-    ava.zwaveGateway.on('zwave:new', (object) => {
+    /*ava.zwaveGateway.on('zwave:new', (object) => {
       if(object.location != '') {
         //Socket here
       }
@@ -47,7 +47,7 @@ class HomeService {
 
     ava.zwaveGateway.on('zwave:removed', (object) => {
       //Socket here
-    });
+    });*/
   }
 }
 
