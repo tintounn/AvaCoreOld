@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 import {Alarm} from "../../models/alarm";
 
 @Component({
@@ -9,9 +9,14 @@ import {Alarm} from "../../models/alarm";
 export class AlarmCardComponent implements OnInit {
 
   @Input('alarm') alarm: Alarm;
+  @Output('delete') deleteEvent: EventEmitter<number> = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
+  }
+
+  delete() {
+    this.deleteEvent.emit(this.alarm.id);
   }
 }

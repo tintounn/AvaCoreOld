@@ -39,6 +39,8 @@ class RoomController {
     let id = req.params.id;
 
     Room.find(id).then((room) => {
+      HomeService.
+
       room.destroy();
       res.sendStatus(200);
     }).catch((err) => {

@@ -18,10 +18,6 @@ class ZwaveGateway extends EventEmitter {
   listen() {
     this.zwave.on('node ready', (nodeId, nodeInfo) => {
       try {
-
-        console.log('New zwave node connected: ' + nodeId);
-        console.log(nodeInfo);
-
         let object = new this.objectsConfig[ava.tools.replaceAll(nodeInfo.manufacturer, ' ', '_')][nodeInfo.productid](nodeId, nodeInfo);
         this.objects.push(object);
 
@@ -29,6 +25,11 @@ class ZwaveGateway extends EventEmitter {
       } catch(e) {
         console.log(e);
       }
+    });
+
+    this.zwave.on('value refreshed', (nodeId, commandClass, valueId) => {
+      let device = this.getObjectByNodeId(nodeId);
+      //TODO: A faire en prio
     });
 
     this.zwave.on('node removed', (nodeId) => {
@@ -44,7 +45,6 @@ class ZwaveGateway extends EventEmitter {
   }
 
   sendValue(nodeId, classId ,instance, index, value) {
-    console.log(nodeId + ' ' + classId + ' ' + instance + ' ' + index + ' ' + value);
     this.zwave.setValue(nodeId, classId, instance, index, value);
   }
 
@@ -53,10 +53,8 @@ class ZwaveGateway extends EventEmitter {
   }
 
   getObjectByNodeInfo(prop, value) {
-    console.log(this.objects);
     let objects = [];
     for(let object of this.objects) {
-      console.log(object);
       if(object.nodeInfo[prop] == value) {
         objects.push(object);
       }

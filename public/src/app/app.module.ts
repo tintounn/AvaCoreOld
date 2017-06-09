@@ -5,6 +5,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
+import { AppMaterialModule } from './app-material.module';
 
 import { RequestService } from './services/request.service';
 import { SessionService } from './services/session.service';
@@ -16,7 +17,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { AdminComponent } from './pages/admin/admin.component';
 import { HomeComponent } from './pages/home/home.component';
 import { HouseComponent } from './pages/house/house.component';
-import { AlarmManagerComponent } from './pages/house/components/alarm-manager/alarm-manager.component';
+import { AlarmManagerComponent } from './components/alarm-manager/alarm-manager.component';
 import { FileManagerComponent } from './pages/nas/components/file-manager/file-manager.component';
 import { SettingComponent } from './pages/setting/setting.component';
 import { NasComponent } from './pages/nas/nas.component';
@@ -65,6 +66,7 @@ import { MapComponent } from './components/map/map.component';
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
     AppRoutingModule,
+    AppMaterialModule
   ],
   providers: [RequestService, SessionService, SocketService, GoogleMapService, RoomFactory, AlarmFactory, FilesFactory, DeviceFactory],
   bootstrap: [AppComponent]

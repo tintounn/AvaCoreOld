@@ -131,55 +131,7 @@ class App {
     return new Promise((resolve, reject) => {
       this.io = require('socket.io')();
       this.io.attach(this.httpServer);
-      this.io.on('connection', (socket) => {
-
-        for(let layer of this.router.stack) {
-          let route = layer.route;
-          let stack = route.stack[0];
-
-          socket.on(stack.method + ' ' + route.path, (data) => {
-            let requestId = data.requestId;
-
-            let body = data.body;
-            if(!body) body = {};
-
-            let query = data.query;
-            if(!query) query = {};
-
-            let req = {
-              url: route.path,
-              method: stack.method,
-              body: body,
-              query: query,
-              isSocket: true,
-              socket: socket
-            };
-
-            let res = {
-              httpStatus: null,
-
-              status: (httpStatus) => {
-                res.httpStatus = httpStatus;
-                return res;
-              },
-
-              sendStatus: (httpStatus) => {
-                res.status(httpStatus).json({});
-              },
-
-              json: (data) => {
-                if(!res.httpStatus) {
-                  res.httpStatus = 200;
-                }
-
-                socket.emit(stack.method + ' ' + route.path + ' ' + requestId, {data: data, status: res.httpStatus});
-              }
-            };
-            this.router.handle(req, res, (err) => { console.log(err); });
-          });
-        }
-      });
-
+      this.io.on('connection', (socket) => this.handleSocketRequest(socket));
       resolve();
     });
   }
@@ -193,6 +145,54 @@ class App {
         resolve();
       }).catch(reject);
     });
+  }
+
+  handleSocketRequest(socket) {
+    for(let layer of this.router.stack) {
+      let route = layer.route;
+      let stack = route.stack[0];
+
+      socket.on(stack.method + ' ' + route.path, (data) => {
+        let requestId = data.requestId;
+
+        let body = data.body;
+        if(!body) body = {};
+
+        let query = data.query;
+        if(!query) query = {};
+
+        let req = {
+          url: route.path,
+          method: stack.method,
+          body: body,
+          query: query,
+          isSocket: true,
+          socket: socket
+        };
+
+        let res = {
+          httpStatus: null,
+
+          status: (httpStatus) => {
+            res.httpStatus = httpStatus;
+            return res;
+          },
+
+          sendStatus: (httpStatus) => {
+            res.status(httpStatus).json({});
+          },
+
+          json: (data) => {
+            if(!res.httpStatus) {
+              res.httpStatus = 200;
+            }
+
+            socket.emit(stack.method + ' ' + route.path + ' ' + requestId, {data: data, status: res.httpStatus});
+          }
+        };
+        this.router.handle(req, res, (err) => { console.log(err); });
+      });
+    }
   }
 }
 

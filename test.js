@@ -1,11 +1,7 @@
-var socket = require('socket.io-client')('http://localhost:8080/');
+function test(i) {
+  i.value++;
+}
 
-
-let requestId = parseInt(Math.random()*100);
-
-
-socket.on('post /auth ' + requestId, (data) => {
-  console.log(data);
-  socket.removeListener('post /auth ' + requestId);
-});
-socket.emit('post /auth', {requestId: requestId, body: {code: "1111"}});
+let i = {value: 0};
+test(i);
+console.log(i.value);
