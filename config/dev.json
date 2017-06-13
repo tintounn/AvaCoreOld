@@ -13,6 +13,10 @@
   "admin": {
     "code": "1111"
   },
+  "nas": {
+    "root": "./files",
+    "queueSize": 5
+  },
   "zwave": "/dev/ttyACM0",
   "secret": "secrethash"
 }
