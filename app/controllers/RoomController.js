@@ -25,22 +25,21 @@ class RoomController {
     let id = req.params.id;
     let data = req.body;
 
-    Room.find(id).then((room) => {
+    Room.findById(id).then((room) => {
       delete data.id;
-      return room.update({room: room});
+      return room.update(data);
     }).then(() => {
-      res.sendStatus(200);
+      data.id = id;
+      res.status(200).json({room: data});
     }).catch((err) => {
-      res.status(500).json(data);
+      res.status(500).json(err);
     });
   }
 
   static delete(req, res) {
     let id = req.params.id;
 
-    Room.find(id).then((room) => {
-      HomeService.
-
+    Room.findById(id).then((room) => {
       room.destroy();
       res.sendStatus(200);
     }).catch((err) => {
@@ -51,7 +50,7 @@ class RoomController {
   static findOne(req, res) {
     let id = req.params.id;
 
-    Room.find(id).then((room) => {
+    Room.findById(id).then((room) => {
       res.status(200).json({room: room});
     }).catch((err) => {
       res.status(500).json(err);

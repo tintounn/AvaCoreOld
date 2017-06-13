@@ -22,8 +22,6 @@ class DeviceController {
   static setValue(req, res) {
     let nodeId = req.params.nodeId;
 
-    console.log(nodeId);
-    console.log(req.body);
     ava.zwaveGateway.getObjectByNodeId(nodeId).sendValue(req.body.valueId, req.body.value);
 
     res.sendStatus(200);

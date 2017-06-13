@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, EventEmitter, Output, ViewChild} from '@angular/core';
 
-import {Room} from "../../models/room";
+import {Room, RoomFactory} from "../../models/room";
 import {AlarmManagerComponent} from '../alarm-manager/alarm-manager.component';
 
 @Component({
@@ -11,18 +11,18 @@ import {AlarmManagerComponent} from '../alarm-manager/alarm-manager.component';
 export class RoomCardComponent implements OnInit {
 
   @Input('room') room: Room;
-  @Output('delete') deleteEvent: EventEmitter<number> = new EventEmitter();
+  @Output('deletes') deletedEvent: EventEmitter<number> = new EventEmitter();
   @ViewChild('alarmManager') alarmManager: AlarmManagerComponent;
 
-  constructor() { }
+  constructor(private roomFactory: RoomFactory) { }
 
   ngOnInit() { }
-
-  openAlarmManager() {
-    this.alarmManager.open();
-  }
-
+  
   delete() {
-    this.deleteEvent.emit(this.room.id);
+    this.roomFactory.delete(this.room.id).then(() => {
+      this.deletedEvent.emit(this.room.id);
+    }).catch((err) => {
+      console.log(err);
+    });
   }
 }

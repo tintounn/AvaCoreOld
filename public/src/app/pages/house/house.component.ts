@@ -11,9 +11,8 @@ declare var jQuery: any;
   styleUrls: ['./house.component.css']
 })
 export class HouseComponent implements OnInit {
-  
-  private rooms: Room[];
-  private room: Room = new Room({});
+
+  public rooms: Room[];
   @ViewChild('roomEditor') roomEditor: RoomEditorComponent;
 
   constructor(private roomFactory: RoomFactory) {}
@@ -26,21 +25,15 @@ export class HouseComponent implements OnInit {
     });
   }
 
-  roomCreated(room: Room) {
-    this.rooms.push(room);
-    this.roomEditor.close();
-  }
-
-  deleteRoom(id, index) {
-    this.roomFactory.delete(id).then((res) => {
-      this.rooms.splice(index, 1);
-    }).catch((err) => {
-      console.log(err);
-    });
-  }
-
-  openRoomEditor() {
+  createRoom() {
     this.roomEditor.open();
   }
 
+  roomCreated(room: Room) {
+    this.rooms.push(room);
+  }
+
+  roomDeleted(id, index) {
+    this.rooms.splice(index, 1);
+  }
 }

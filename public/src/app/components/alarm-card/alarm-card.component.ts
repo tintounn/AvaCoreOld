@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
-import {Alarm} from "../../models/alarm";
+import {Alarm, AlarmFactory} from "../../models/alarm";
 
 @Component({
   selector: 'app-alarm-card',
@@ -9,14 +9,18 @@ import {Alarm} from "../../models/alarm";
 export class AlarmCardComponent implements OnInit {
 
   @Input('alarm') alarm: Alarm;
-  @Output('delete') deleteEvent: EventEmitter<number> = new EventEmitter();
+  @Input('roomId') roomId: number;
+  @Output('deleted') deletedEvent: EventEmitter<number> = new EventEmitter();
 
-  constructor() { }
+  constructor(private alarmFactory: AlarmFactory) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   delete() {
-    this.deleteEvent.emit(this.alarm.id);
+    this.alarmFactory.delete(this.roomId, this.alarm.id).then(() => {
+      this.deletedEvent.emit(this.alarm.id);
+    }).catch((err) => {
+      console.log(err);
+    });
   }
 }

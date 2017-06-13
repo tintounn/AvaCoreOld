@@ -5,7 +5,6 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppRoutingModule } from './app-routing.module';
-import { AppMaterialModule } from './app-material.module';
 
 import { RequestService } from './services/request.service';
 import { SessionService } from './services/session.service';
@@ -22,6 +21,7 @@ import { FileManagerComponent } from './pages/nas/components/file-manager/file-m
 import { SettingComponent } from './pages/setting/setting.component';
 import { NasComponent } from './pages/nas/nas.component';
 import { DroneComponent } from './pages/drone/drone.component';
+import { RoomComponent } from './pages/room/room.component';
 
 import { Room, RoomFactory } from './models/room';
 import { Alarm, AlarmFactory } from './models/alarm';
@@ -36,6 +36,7 @@ import { DeviceCardComponent } from './components/device-card/device-card.compon
 import { ColorPickerComponent } from './components/color-picker/color-picker.component';
 import { ColorPickerModalComponent } from './components/color-picker-modal/color-picker-modal.component';
 import { MapComponent } from './components/map/map.component';
+
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { MapComponent } from './components/map/map.component';
     DeviceCardComponent,
     ColorPickerComponent,
     ColorPickerModalComponent,
-    MapComponent
+    MapComponent,
+    RoomComponent
   ],
   imports: [
     BrowserModule,
@@ -65,8 +67,7 @@ import { MapComponent } from './components/map/map.component';
     HttpModule,
     BrowserAnimationsModule,
     SimpleNotificationsModule.forRoot(),
-    AppRoutingModule,
-    AppMaterialModule
+    AppRoutingModule
   ],
   providers: [RequestService, SessionService, SocketService, GoogleMapService, RoomFactory, AlarmFactory, FilesFactory, DeviceFactory],
   bootstrap: [AppComponent]

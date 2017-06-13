@@ -28,15 +28,15 @@ export class RoomFactory {
   }
 
   create(room: Room): Promise<Room> {
-    return this.request.post('/rooms', room).then(response => new Room(response.room.json()));
+    return this.request.post('/rooms', room).then(response => new Room(response.json().room));
   }
 
   findOne(id: number): Promise<Room> {
-    return this.request.get('/rooms/' + id).then(response => new Room(response.room.json()));
+    return this.request.get('/rooms/' + id).then(response => new Room(response.json().room));
   }
 
   update(room: Room): Promise<Room> {
-    return this.request.put('/rooms/' + room.id, room).then(response => new Room(response.room.json()));
+    return this.request.put('/rooms/' + room.id, room).then(response => new Room(response.json().room));
   }
 
   createOrUpdate(room: Room): Promise<Room> {

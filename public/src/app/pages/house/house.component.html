@@ -3,13 +3,13 @@
   <p class="lead">Les pièces de la maison.</p>
   <hr class="my-4">
   <p class="lead">
-    <button type="button" class="btn btn-primary" (click)="openRoomEditor()">Nouvelle pièce</button>
+    <button type="button" class="btn btn-primary" (click)="createRoom()">Nouvelle pièce</button>
   </p>
 </div>
 
 <div class="card-deck">
   <ng-container *ngFor="let room of rooms; let i = index;">
-    <app-room-card [room]="room" (delete)="deleteRoom($event, i)"></app-room-card>
+    <app-room-card [room]="room" (deleted)="roomDeleted($event, i)"></app-room-card>
   </ng-container>
 </div>
 

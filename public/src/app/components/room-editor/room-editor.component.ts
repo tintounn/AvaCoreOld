@@ -16,21 +16,20 @@ export class RoomEditorComponent implements AfterViewInit {
 
   constructor(private roomFactory: RoomFactory) { }
 
-  ngAfterViewInit() { 
-
-  }
+  ngAfterViewInit() { }
 
   open() {
-    jQuery('#' + this.id).modal({show: true});
+    jQuery('#' + this.id).modal({show: true, animation: false});
   }
 
   close() {
-    jQuery('#' + this.id).modal({show: close});
+    jQuery('#' + this.id).modal({show: close, animation: false});
   }
 
   save() {
     this.roomFactory.createOrUpdate(this.room).then((room) => {
       this.savedEvent.emit(room);
+      this.close();
     }).catch((err) => {
       console.error(err);
     });

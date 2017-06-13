@@ -8,12 +8,14 @@ import { HouseComponent } from './pages/house/house.component';
 import { DevicesComponent } from './pages/device/devices.component';
 import { SettingComponent } from './pages/setting/setting.component';
 import { NasComponent } from './pages/nas/nas.component';
+import { RoomComponent } from "./pages/room/room.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'admin', component: AdminComponent, children: [
     { path: 'home', component: HomeComponent },
     { path: 'house', component: HouseComponent },
+    { path: 'room/:id', component: RoomComponent },
     { path: 'setting', component: SettingComponent },
     { path: 'nas', component: NasComponent },
     { path: 'device', component: DevicesComponent}

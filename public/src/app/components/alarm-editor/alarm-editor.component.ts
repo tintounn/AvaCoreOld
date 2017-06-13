@@ -10,13 +10,14 @@ declare var jQuery: any;
 })
 export class AlarmEditorComponent implements OnInit {
 
-  @Input('id') id: String = "";
+  private days: Dictionary;
+  private id: string = "alarmEditor";
+
   @Input('alarm') alarm: Alarm = new Alarm({});
   @Input('roomId') roomId: number;
-  @Output('saved') savedEvent: EventEmitter<Alarm> = new EventEmitter();
-  private days: Dictionary;
+  @Output('created') createdEvent: EventEmitter<Alarm> = new EventEmitter();
 
-  constructor(private alarmFactory: AlarmFactory) { 
+  constructor(private alarmFactory: AlarmFactory) {
     this.days = {1: 'Lun', 2: 'Mar', 3: 'Mer', 4: 'Jeu', 5: 'Ven', 6: 'Sam', 0: 'Dim'};
   }
 
@@ -24,7 +25,8 @@ export class AlarmEditorComponent implements OnInit {
 
   save() {
     this.alarmFactory.createOrUpdate(this.roomId, this.alarm).then((alarm) => {
-      this.savedEvent.emit(alarm);
+      this.createdEvent.emit(alarm);
+      this.close();
     }).catch((err) => {
       console.error(err);
     });
@@ -51,6 +53,10 @@ export class AlarmEditorComponent implements OnInit {
 
   keys(): Array<string> {
     return Object.keys(this.days);
+  }
+
+  setAlarm(alarm: Alarm) {
+    this.alarm = alarm;
   }
 }
 
