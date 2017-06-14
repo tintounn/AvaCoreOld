@@ -9,7 +9,9 @@
 
 <div class="card-deck">
   <ng-container *ngFor="let room of rooms; let i = index;">
-    <app-room-card [room]="room" (deleted)="roomDeleted($event, i)"></app-room-card>
+    <div class="col-12 col-md-6 col-lg-4">
+      <app-room-card [room]="room" (deleted)="roomDeleted($event, i)"></app-room-card>
+    </div>
   </ng-container>
 </div>
 
