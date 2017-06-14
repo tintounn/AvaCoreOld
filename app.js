@@ -1,5 +1,6 @@
 const http = require('http');
 const path = require('path');
+const fs = require('fs');
 const nconf = require('nconf');
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -7,6 +8,7 @@ const auth = require('./app/policies/auth');
 const includeAll = require('include-all');
 
 const Database = require('./database');
+const Log = require('./log');
 const Jwt = require('./jwt');
 const Tools = require('./tools');
 //const ZwaveGateway = require('./app/gateways/ZwaveGateway');
@@ -14,23 +16,36 @@ const Tools = require('./tools');
 class App {
   constructor() {
 
+    let file = fs.readFileSync('./ascii.txt', {encoding: 'utf-8'});
+    console.log(file);
+
     this.initConfig()
       .then(() => {
         return this.initRoutes()
     }).then(() => {
       return this.initModels();
     }).then(() => {
+      this.log.info('connection to database...');
       return this.initDatabase();
     }).then(() => {
+      this.log.success('database connected !');
+      this.log.info('load services...');
       return this.initServices();
     }).then(() => {
+      this.log.success('services loaded !');
+      this.log.info('launch http server...');
       return this.initHttpServer();
     }).then(() => {
+      this.log.success('http server launched !');
+      this.log.info('launch socket server...');
       return this.initSocketServer();
     }).then(() => {
+      this.log.success('socket server launched !');
       return this.initFinalSteps();
+    }).then(() => {
+      this.log.success('ava system launched :)');
     }).catch((err) => {
-      console.error(err);
+      this.log.error(err);
     });
   }
 
@@ -45,6 +60,7 @@ class App {
       this.config = nconf;
       this.jwt = new Jwt();
       this.tools = Tools;
+      this.log = new Log();
       this.root = __dirname;
       //this.zwaveGateway = new ZwaveGateway(this.config, __dirname);
       resolve();
@@ -97,7 +113,6 @@ class App {
   }
 
   initServices() {
-    console.log('Services');
     return new Promise((resolve, reject) => {
       let services = includeAll({
         dirname: path.join(__dirname, 'app', 'services'),

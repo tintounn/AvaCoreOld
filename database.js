@@ -7,7 +7,8 @@ class Database {
     return new Promise((resolve, reject) => {
       this.sequelize = new Sequelize(config.get('orm:database'), config.get('orm:user'), config.get('orm:password'), {
         host: config.get('orm:host'),
-        dialect: config.get('orm:dialect')
+        dialect: config.get('orm:dialect'),
+        logging: false
       });
 
       this.sequelize.authenticate().then(() => {
