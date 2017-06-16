@@ -7,13 +7,13 @@ export class Alarm {
   public id: number;
   public name: string;
   public time: string;
-  public days: Array<number>;
+  public days: Array<number> = [];
 
   constructor(data: any) {
     if(data.id) this.id = data.id;
     if(data.name) this.name = data.name;
     if(data.time) this.time = data.time;
-    if(data.days) this.days = data.days;
+    if(data.days) this.days = data.days.split(',');
   }
 }
 
@@ -22,7 +22,7 @@ export class AlarmFactory {
   constructor(private request: RequestService) { }
 
   find(roomId: number): Promise<Alarm[]> {
-    return this.request.get('/rooms/' + roomId + '/alarms').then(response => response.json().map((elt) => { return new Alarm(elt); }));
+    return this.request.get('/rooms/' + roomId + '/alarms').then(response => response.json().alarms.map((elt) => { return new Alarm(elt); }));
   }
 
   delete(roomId: number, alarmId: number): Promise<any> {
@@ -30,15 +30,15 @@ export class AlarmFactory {
   }
 
   create(roomId: number, alarm: Alarm): Promise<Alarm> {
-    return this.request.post('/rooms/' + roomId + '/alarms', alarm).then(response => new Alarm(response.json()));
+    return this.request.post('/rooms/' + roomId + '/alarms', alarm).then(response => new Alarm(response.json().alarm));
   }
 
   findOne(roomId: number, alarmId: number): Promise<Alarm> {
-    return this.request.get('/rooms/' + roomId + '/alarms/' + alarmId).then(response => new Alarm(response.json()));
+    return this.request.get('/rooms/' + roomId + '/alarms/' + alarmId).then(response => new Alarm(response.json().alarm));
   }
 
   update(roomId: number, alarm: Alarm): Promise<Alarm> {
-    return this.request.put('/rooms/' + roomId + '/alarms/' + alarm.id, alarm).then(response => new Alarm(response.json()));
+    return this.request.put('/rooms/' + roomId + '/alarms/' + alarm.id, alarm).then(response => new Alarm(response.json().alarm));
   }
 
   createOrUpdate(roomId: number, alarm: Alarm) {

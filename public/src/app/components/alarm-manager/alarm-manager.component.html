@@ -1,8 +1,10 @@
 <div class="card-deck">
   <ng-container *ngFor="let alarm of alarms; let i = index;">
-    <app-alarm-card (update)="updateAlarm(i)" (deleted)="alarmDeleted($event, i)" [roomId]="roomId" [alarm]="alarm"></app-alarm-card>
+    <div class="col-12 col-md-6">
+      <app-alarm-card style="margin: 10px;" (update)="updateAlarm(i)" (deleted)="alarmDeleted($event, i)" [roomId]="roomId" [alarm]="alarm"></app-alarm-card>
+    </div>
   </ng-container>
 </div>
 
-<button (click)="createAlarm()">Créer un reveil</button>
+<button class="btn btn-success" style="width: 100%;" (click)="createAlarm()">Créer un reveil</button>
 <app-alarm-editor #alarmEditor (created)="alarmCreated($event)" [roomId]="roomId"></app-alarm-editor>

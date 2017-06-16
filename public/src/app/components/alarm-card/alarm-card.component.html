@@ -1,10 +1,10 @@
-<div class="col-12 col-md-6">
+
   <div class="card">
     <div class="card-block">
       <h4 class="card-title">{{alarm.name}}</h4>
       <p class="card-text">{{alarm.time}}</p>
       <span *ngFor="let key of keys();">
-        <span *ngIf="alarm.days.split(',').indexOf(key) != -1"> {{days[key]}} | </span>
+        <span *ngIf="alarm.days.indexOf(key) != -1"> {{days[key]}} | </span>
       </span>
     </div>
     <div class="card-footer">
@@ -15,4 +15,3 @@
       </div>
     </div>
   </div>
-</div>
