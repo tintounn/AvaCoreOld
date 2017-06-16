@@ -15,7 +15,11 @@
   },
   "nas": {
     "root": "./files",
-    "queueSize": 5
+    "queueSize": 5,
+    "music": null,
+    "video": null,
+    "picture": null,
+    "game": null
   },
   "zwave": "/dev/ttyACM0",
   "secret": "secrethash"
