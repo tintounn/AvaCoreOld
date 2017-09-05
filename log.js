@@ -3,9 +3,7 @@ const fs = require('fs');
 
 class Log {
 
-  constructor() {
-    this.errorFile = fs.createWri
-  }
+  constructor() {}
 
   error(msg) {
     console.log(Colors.red('[error]') + msg);

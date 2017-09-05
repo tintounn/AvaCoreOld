@@ -9,17 +9,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.17.1",
+    "body-parser": "^1.17.2",
     "colors": "^1.1.2",
-    "express": "^4.15.2",
+    "express": "^4.15.4",
     "fluent-ffmpeg": "^2.1.2",
     "include-all": "^4.0.3",
-    "jsonwebtoken": "^7.4.0",
-    "mysql": "^2.13.0",
+    "jsonwebtoken": "^7.4.3",
+    "mysql2": "^1.4.2",
     "nconf": "^0.8.4",
     "require-all": "^2.2.0",
-    "sequelize": "^3.30.4",
-    "socket.io": "^1.7.3",
-    "socket.io-client": "^1.7.3"
+    "sequelize": "^4.8.0",
+    "socket.io": "^2.0.3",
+    "socket.io-client": "^2.0.3"
   }
 }
