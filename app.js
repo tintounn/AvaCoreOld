@@ -15,124 +15,94 @@ const Tools = require('./tools');
 
 class App {
   constructor() {
+    let file = fs.readFileSync('./ascii.txt', { encoding: 'utf-8' });
+    //console.log(file);
 
-    let file = fs.readFileSync('./ascii.txt', {encoding: 'utf-8'});
-    console.log(file);
+    this.startApp();
+  }
 
-    this.initConfig()
-      .then(() => {
-        return this.initRoutes()
-    }).then(() => {
-      return this.initModels();
-    }).then(() => {
-      this.log.info('connection to database...');
-      return this.initDatabase();
-    }).then(() => {
-      this.log.success('database connected !');
-      this.log.info('load services...');
-      return this.initServices();
-    }).then(() => {
-      this.log.success('services loaded !');
-      this.log.info('launch http server...');
-      return this.initHttpServer();
-    }).then(() => {
-      this.log.success('http server launched !');
-      this.log.info('launch socket server...');
-      return this.initSocketServer();
-    }).then(() => {
-      this.log.success('socket server launched !');
-      return this.initFinalSteps();
-    }).then(() => {
+  async startApp() {
+    try {
+      await this.initConfig();
+      await this.initRoutes();
+      await this.initDatabase();
+      await this.initServices();
+      await this.initHttpServer();
+      await this.initSocketServer();
+      await this.initFinalSteps();
+
       this.log.success('ava system launched :)');
-    }).catch((err) => {
-      this.log.error(err);
-    });
+    } catch (error) {
+      this.log.error(error);
+    }
   }
 
   initConfig() {
-    return new Promise((resolve, reject) => {
-      this.env = 'dev';
-      nconf.argv();
+    nconf.argv();
 
-      if(nconf.get('prod') || nconf.get('production')) this.env = 'prod';
-      nconf.file(path.join(__dirname, 'config', this.env + '.json'));
+    (nconf.get('prod') || nconf.get('production')) ? this.env = 'prod' : this.env = 'dev';
+    nconf.file(path.join(__dirname, 'config', this.env + '.json'));
 
-      this.config = nconf;
-      this.jwt = new Jwt();
-      this.tools = Tools;
-      this.log = new Log();
-      this.root = __dirname;
-      //this.zwaveGateway = new ZwaveGateway(this.config, __dirname);
-      resolve();
-    });
+    this.config = nconf;
+    this.jwt = new Jwt();
+    this.tools = Tools;
+    this.log = new Log();
+    this.root = __dirname;
   }
 
   initDatabase() {
+    let models = includeAll({
+      dirname: path.join(__dirname, 'app', 'models'),
+      excludeDirs: /^\.(git|svn)$/
+    });
+
     this.database = new Database();
-    return this.database.init(this.config, this.models);
+    return this.database.init(this.config, models); 
   }
 
   initRoutes() {
-    return new Promise((resolve, reject) => {
-      this.router = express.Router();
+    this.router = express.Router();
 
-      let controllers = includeAll({
-        dirname: path.join(__dirname, 'app', 'controllers'),
-        filter:  /(.+Controller)\.js$/,
-        excludeDirs :  /^\.(git|svn)$/
-      });
+    let controllers = includeAll({
+      dirname: path.join(__dirname, 'app', 'controllers'),
+      excludeDirs: /^\.(git|svn)$/
+    });
 
-      this.policies = includeAll({
-        dirname: path.join(__dirname, 'app', 'policies'),
-        excludeDirs :  /^\.(git|svn)$/
-      });
+    this.policies = includeAll({
+      dirname: path.join(__dirname, 'app', 'policies'),
+      excludeDirs: /^\.(git|svn)$/
+    });
 
-      for(let controller in controllers) {
-        let controllerRoutes = controllers[controller].routes();
+    for (let controller in controllers) {
+      let controllerRoutes = controllers[controller].routes();
 
-        for(let route in controllerRoutes) {
-          let action = controllerRoutes[route];
-          let method = route.split(' ')[0];
-          let path = route.split(' ')[1];
+      for (let route in controllerRoutes) {
+        let action = controllerRoutes[route];
+        let method = route.split(' ')[0];
+        let path = route.split(' ')[1];
 
-          this.router[method](path, [auth], action);
-        }
+        this.router[method](path, [auth], action);
       }
-      resolve();
-    });
-  }
-
-  initModels() {
-    return new Promise((resolve, reject) => {
-      this.models = includeAll({
-        dirname: path.join(__dirname, 'app', 'models'),
-        excludeDirs :  /^\.(git|svn)$/
-      });
-      resolve();
-    });
+    }
   }
 
   initServices() {
-    return new Promise((resolve, reject) => {
-      let services = includeAll({
-        dirname: path.join(__dirname, 'app', 'services'),
-        excludeDirs :  /^\.(git|svn)$/
-      });
-
-      for(let service in services) {
-        let serviceName = service.split('.')[0];
-        global[serviceName.charAt(0).toUpperCase() + serviceName.slice(1)] = new services[service]();
-      }
-
-      resolve();
+    let services = includeAll({
+      dirname: path.join(__dirname, 'app', 'services'),
+      excludeDirs: /^\.(git|svn)$/
     });
+
+    for (let service in services) {
+      let serviceName = service.split('.')[0];
+      global[serviceName.charAt(0).toUpperCase() + serviceName.slice(1)] = new services[service]();
+    }
   }
 
   initHttpServer() {
     return new Promise((resolve, reject) => {
       this.express = express();
 
-      this.express.use(bodyParser.urlencoded({extended: false}));
+      this.express.use(bodyParser.urlencoded({ extended: false }));
       this.express.use(bodyParser.json());
       this.express.use('/', this.router);
       this.express.use(express.static(path.join(__dirname, 'public', 'dist')));
@@ -143,12 +113,9 @@ class App {
   }
 
   initSocketServer() {
-    return new Promise((resolve, reject) => {
-      this.io = require('socket.io')();
-      this.io.attach(this.httpServer);
-      this.io.on('connection', (socket) => this.handleSocketRequest(socket));
-      resolve();
-    });
+    this.io = require('socket.io')();
+    this.io.attach(this.httpServer);
+    this.io.on('connection', (socket) => this.handleSocketRequest(socket));
   }
 
   initFinalSteps() {
@@ -163,7 +130,7 @@ class App {
   }
 
   handleSocketRequest(socket) {
-    for(let layer of this.router.stack) {
+    for (let layer of this.router.stack) {
       let route = layer.route;
       let stack = route.stack[0];
 
@@ -171,10 +138,10 @@ class App {
         let requestId = data.requestId;
 
         let body = data.body;
-        if(!body) body = {};
+        if (!body) body = {};
 
         let query = data.query;
-        if(!query) query = {};
+        if (!query) query = {};
 
         let req = {
           url: route.path,
@@ -198,11 +165,11 @@ class App {
           },
 
           json: (data) => {
-            if(!res.httpStatus) {
+            if (!res.httpStatus) {
               res.httpStatus = 200;
             }
 
-            socket.emit(stack.method + ' ' + route.path + ' ' + requestId, {data: data, status: res.httpStatus});
+            socket.emit(stack.method + ' ' + route.path + ' ' + requestId, { data: data, status: res.httpStatus });
           }
         };
         this.router.handle(req, res, (err) => { console.log(err); });
