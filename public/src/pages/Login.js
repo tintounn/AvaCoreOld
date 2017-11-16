@@ -31,14 +31,15 @@ class Login extends Component {
     const name = target.name;
 
     this.setState({
-      [name]: value
+      [name]: value,
+      "codeValid": null
     });
   }
   
   handleOnClick(event) {
-    axios.post('/api/login', qs.stringify({
+    axios.post('/api/auth', {
       code: this.state.code
-    })).then((res) => {
+    }).then((res) => {
       this.setState({logged: true});
       getSocket();
     }).catch((err) => {

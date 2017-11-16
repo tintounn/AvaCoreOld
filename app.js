@@ -106,14 +106,15 @@ class App {
     return new Promise((resolve, reject) => {
       this.log.info('starting http server...');
       this.express = express();
+      let port = this.config.get('http:port');
 
       this.express.use(bodyParser.urlencoded({ extended: false }));
       this.express.use(bodyParser.json());
       this.express.use('/', this.router);
-      this.express.use(express.static(path.join(__dirname, 'public', 'dist')));
+      this.express.use(express.static(path.join(__dirname, 'public', 'build')));
 
       this.httpServer = http.createServer(this.express);
-      this.httpServer.listen(this.config.get('http:port'), () => {this.log.success('http server launched !'); resolve()});
+      this.httpServer.listen(port, () => {this.log.success(`http server launched on port ${port} !`); resolve()});
     });
   }
 

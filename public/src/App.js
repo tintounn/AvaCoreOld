@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom';
 
 import Login from './pages/Login';
-import Home from './pages/Home';
+import Dashboard from './pages/Dashboard';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
@@ -18,7 +18,7 @@ class App extends Component {
     super(props);
 
     this.state = {
-      loggedIn: false
+      loggedIn: true
     };
   }
 
@@ -30,7 +30,7 @@ class App extends Component {
             <Redirect to="/login"/>
           }
 
-          <Route exact path="/" component={Home}/>
+          <Route exact path="/" component={Dashboard}/>
           <Route exact path="/login" component={Login}/>
         </div>
       </Router>
