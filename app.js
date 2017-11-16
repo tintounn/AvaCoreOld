@@ -122,10 +122,11 @@ class App {
     //this.zwaveGateway.listen();
 
     return new Promise((resolve, reject) => {
-      Room.findAll().then((rooms) => {
+      /*Room.findAll().then((rooms) => {
         HomeService.launch(rooms);
-        resolve();
-      }).catch(reject);
+        
+      }).catch(reject);*/
+      resolve();
     });
   }
 

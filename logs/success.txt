@@ -1,1 +1,3 @@
-[info]connection to database...
+[success]ava system launched :)
+[success]ava system launched :)
+[success]ava system launched :)

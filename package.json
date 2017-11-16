@@ -15,6 +15,7 @@
     "fluent-ffmpeg": "^2.1.2",
     "include-all": "^4.0.3",
     "jsonwebtoken": "^8.1.0",
+    "mongoose": "^4.13.3",
     "mysql2": "^1.5.0",
     "nconf": "^0.9.1",
     "require-all": "^2.2.0",
