@@ -23,7 +23,7 @@ class ZwaveGateway extends EventEmitter {
 
         this.emit('zwave:new', this.objects[this.objects.length - 1]);
       } catch(e) {
-        console.log(e);
+        ava.log.warning(e);
       }
     });
 

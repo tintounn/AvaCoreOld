@@ -16,7 +16,7 @@ const Tools = require('./tools');
 class App {
   constructor() {
     let file = fs.readFileSync('./ascii.txt', { encoding: 'utf-8' });
-    //console.log(file);
+    console.log(file);
 
     this.startApp();
   }
@@ -51,16 +51,19 @@ class App {
   }
 
   initDatabase() {
+    this.log.info('connecting to database...');
     let models = includeAll({
       dirname: path.join(__dirname, 'app', 'models'),
       excludeDirs: /^\.(git|svn)$/
     });
 
     this.database = new Database();
-    return this.database.init(this.config, models); 
+    this.database.init(this.config, models); 
+    this.log.success('connection to database successful !');
   }
 
   initRoutes() {
+    this.log.info('init api routes...');
     this.router = express.Router();
 
     let controllers = includeAll({
@@ -84,6 +87,7 @@ class App {
         this.router[method](path, [auth], action);
       }
     }
+    this.log.success('api routes initialized !');
   }
 
   initServices() {
@@ -100,6 +104,7 @@ class App {
 
   initHttpServer() {
     return new Promise((resolve, reject) => {
+      this.log.info('starting http server...');
       this.express = express();
 
       this.express.use(bodyParser.urlencoded({ extended: false }));
@@ -108,14 +113,16 @@ class App {
       this.express.use(express.static(path.join(__dirname, 'public', 'dist')));
 
       this.httpServer = http.createServer(this.express);
-      this.httpServer.listen(this.config.get('http:port'), resolve);
+      this.httpServer.listen(this.config.get('http:port'), () => {this.log.success('http server launched !'); resolve()});
     });
   }
 
   initSocketServer() {
+    this.log.info('starting socket server...');
     this.io = require('socket.io')();
     this.io.attach(this.httpServer);
     this.io.on('connection', (socket) => this.handleSocketRequest(socket));
+    this.log.success('socket server launched !');
   }
 
   initFinalSteps() {
