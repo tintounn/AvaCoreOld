@@ -19,7 +19,7 @@ const androidTvGateway = require('./app/gateways/androidtv.gateway');
 class App {
   constructor() {
     let file = fs.readFileSync('./ascii.txt', { encoding: 'utf-8' });
-    //console.log(file);
+    console.log(file);
 
     this.startApp();
   }
@@ -122,11 +122,13 @@ class App {
   }
 
   initGateways() {
+    this.log.info('starting gateways....');
     //this.zwaveGateway = new ZwaveGateway(this.config, this.root);
     this.androidTvGateway = new androidTvGateway(this.config);
 
     //this.zwaveGateway.listen();
     this.androidTvGateway.listen(this.httpServer);
+    this.log.success('gateways started !');
   }
 
   initFinalSteps() {
