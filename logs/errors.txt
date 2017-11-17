@@ -29,3 +29,6 @@ ReferenceError: Schema is not defined
 [error]MongoError: failed to connect to server [localhost:27017] on first connect [MongoError: connect ECONNREFUSED 127.0.0.1:27017]
 [error]MongoError: failed to connect to server [localhost:27017] on first connect [MongoError: connect ECONNREFUSED 127.0.0.1:27017]
 [error]MongoError: failed to connect to server [localhost:27017] on first connect [MongoError: connect ECONNREFUSED 127.0.0.1:27017]
+[error]TypeError: this.initSocketServer is not a function
+[error]TypeError: this.initGateways is not a function
+[error]ReferenceError: Must call super constructor in derived class before accessing 'this' or returning from derived constructor

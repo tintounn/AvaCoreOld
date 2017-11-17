@@ -1,9 +1,8 @@
+const Device = require('./Device');
 
-class ZwaveObject {
-  constructor(nodeId, nodeInfo, categories) {
-    this.nodeId = nodeId;
-    this.nodeInfo = nodeInfo;
-    this.categories = categories;
+class ZwaveObject extends Device {
+  constructor(nodeId, categories, gateway, location) {
+    super(nodeId, categories, gateway, location);
     this.values = {};
   }
 
@@ -11,16 +10,12 @@ class ZwaveObject {
     if(!this.values[id]) return;
     this.values[id].value = value;
 
-    ava.zwaveGateway.sendValue(this.nodeId, this.values[id].classId, this.values[id].instance, this.values[id].index, value);
-  }
-
-  get location() {
-    return this.nodeInfo.loc;
+    this.gateway.sendValue(this.nodeId, this.values[id].classId, this.values[id].instance, this.values[id].index, value);
   }
 
   setLocation(location) {
-    this.nodeInfo['loc'] = location;
-    ava.zwaveGateway.setNodeLocation(this.nodeId, location);
+    this.location = location;
+    this.gateway.setNodeLocation(this.nodeId, location);
   }
 }
 

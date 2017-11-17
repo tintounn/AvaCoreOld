@@ -11,7 +11,10 @@ const Database = require('./database');
 const Log = require('./log');
 const Jwt = require('./jwt');
 const Tools = require('./tools');
+const DeviceManager = require('./app/class/DeviceManager');
+
 //const ZwaveGateway = require('./app/gateways/ZwaveGateway');
+const androidTvGateway = require('./app/gateways/androidtv.gateway');
 
 class App {
   constructor() {
@@ -28,7 +31,7 @@ class App {
       await this.initDatabase();
       await this.initServices();
       await this.initHttpServer();
-      await this.initSocketServer();
+      await this.initGateways();
       await this.initFinalSteps();
 
       this.log.success('ava system launched :)');
@@ -47,6 +50,7 @@ class App {
     this.jwt = new Jwt();
     this.tools = Tools;
     this.log = new Log();
+    this.deviceManager = new DeviceManager();
     this.root = __dirname;
   }
 
@@ -117,12 +121,12 @@ class App {
     });
   }
 
-  initSocketServer() {
-    this.log.info('starting socket server...');
-    this.io = require('socket.io')();
-    this.io.attach(this.httpServer);
-    this.io.on('connection', (socket) => this.handleSocketRequest(socket));
-    this.log.success('socket server launched !');
+  initGateways() {
+    //this.zwaveGateway = new ZwaveGateway(this.config, this.root);
+    this.androidTvGateway = new androidTvGateway(this.config);
+
+    //this.zwaveGateway.listen();
+    this.androidTvGateway.listen(this.httpServer);
   }
 
   initFinalSteps() {
@@ -135,54 +139,6 @@ class App {
       }).catch(reject);*/
       resolve();
     });
-  }
-
-  handleSocketRequest(socket) {
-    for (let layer of this.router.stack) {
-      let route = layer.route;
-      let stack = route.stack[0];
-
-      socket.on(stack.method + ' ' + route.path, (data) => {
-        let requestId = data.requestId;
-
-        let body = data.body;
-        if (!body) body = {};
-
-        let query = data.query;
-        if (!query) query = {};
-
-        let req = {
-          url: route.path,
-          method: stack.method,
-          body: body,
-          query: query,
-          isSocket: true,
-          socket: socket
-        };
-
-        let res = {
-          httpStatus: null,
-
-          status: (httpStatus) => {
-            res.httpStatus = httpStatus;
-            return res;
-          },
-
-          sendStatus: (httpStatus) => {
-            res.status(httpStatus).json({});
-          },
-
-          json: (data) => {
-            if (!res.httpStatus) {
-              res.httpStatus = 200;
-            }
-
-            socket.emit(stack.method + ' ' + route.path + ' ' + requestId, { data: data, status: res.httpStatus });
-          }
-        };
-        this.router.handle(req, res, (err) => { console.log(err); });
-      });
-    }
   }
 }
 

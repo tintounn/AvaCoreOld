@@ -8,7 +8,7 @@ class ZwaveGateway extends EventEmitter {
     super();
 
     this.zwave = new OZW({ConsoleOutput: true});
-    this.zwave.connect(config.get('zwave'));
+    this.serial = config.get('gateway:zwave');
 
     this.objects = [];
 
@@ -16,11 +16,13 @@ class ZwaveGateway extends EventEmitter {
   }
 
   listen() {
+    this.zwave.connect(this.serial);
     this.zwave.on('node ready', (nodeId, nodeInfo) => {
       try {
-        let object = new this.objectsConfig[ava.tools.replaceAll(nodeInfo.manufacturer, ' ', '_')][nodeInfo.productid](nodeId, nodeInfo);
+        let object = new this.objectsConfig[ava.tools.replaceAll(nodeInfo.manufacturer, ' ', '_')][nodeInfo.productid](nodeId, this, nodeInfo.loc);
         this.objects.push(object);
 
+        ava.deviceManager.add(object);
         this.emit('zwave:new', this.objects[this.objects.length - 1]);
       } catch(e) {
         ava.log.warning(e);
@@ -39,6 +41,7 @@ class ZwaveGateway extends EventEmitter {
           this.emit('zwave:removed', object);
 
           this.objects.splice(i, 1);
+          ava.deviceManager.remove(nodeId);
         }
       }
     });
@@ -67,18 +70,6 @@ class ZwaveGateway extends EventEmitter {
     for(let object of this.objects) {
       if(object.nodeId == nodeId) return object;
     }
-  }
-
-  softReset() {
-    this.zwave.softReset();
-  }
-
-  hardReset() {
-    this.zwave.hardReset();
-  }
-
-  heal() {
-    this.zwave.healNetwork();
   }
 }
 

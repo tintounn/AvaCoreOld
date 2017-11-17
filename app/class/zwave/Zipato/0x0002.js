@@ -3,8 +3,8 @@
 const ZwaveObject = require('../../ZwaveObject');
 
 class Zipato0x0002 extends ZwaveObject {
-  constructor(nodeId, nodeInfo) {
-    super(nodeId, nodeInfo, ['RGBLamp']);
+  constructor(nodeId, gateway, location) {
+    super(nodeId, ['RGBLamp'], gateway, location);
     this.values = {
       "51-1-0": {
         "name": "Color",

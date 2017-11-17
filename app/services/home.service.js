@@ -51,21 +51,16 @@ class HomeService {
   }
 
   setObjectLocation(nodeId, roomId) {
-    let device = ava.zwaveGateway.getObjectByNodeId(nodeId);
+    let device = ava.deviceManager.getObjectByNodeId(nodeId);
 
     if(device.location != '') {
-      let room = this.getRoomById(device.location);
-      room.getDeviceManager().remove(object.nodeId);
+      let room = this.getRoomById(device.location).getDeviceManager().remove(object.nodeId);
     }
 
     if(roomId != '') {
-      let room = this.getRoomById(roomId);
-
-      ava.zwaveGateway.getObjectByNodeId(nodeId).setLocation(roomId);
-      room.getDeviceManager().add(device);  
-    } else {
-      ava.zwaveGateway.getObjectByNodeId(nodeId).setLocation('');
+      this.getRoomById(roomId).getDeviceManager().add(device);
     }
+    device.setLocation(roomId);
   }
 
   launch(rooms) {

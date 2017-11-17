@@ -10,6 +10,10 @@
   "http": {
     "port": 8000
   },
+  "gateway": {
+    "androidtv": 8001,
+    "zwave": "/dev/ttyACM0"
+  },
   "admin": {
     "code": "1111"
   },
@@ -21,6 +25,5 @@
     "picture": null,
     "game": null
   },
-  "zwave": "/dev/ttyACM0",
   "secret": "secrethash"
 }

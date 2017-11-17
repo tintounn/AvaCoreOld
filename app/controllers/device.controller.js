@@ -19,6 +19,13 @@ class DeviceController {
     res.status(200).json({devices: objects});
   }
 
+  static findByCategory(req, res) {
+    let category = req.params.category;
+    let devices = ava.deviceManager.getDevicesByCategory(category);
+
+    res.status(200).json({devices: devices});
+  }
+
   static setValue(req, res) {
     let nodeId = req.params.nodeId;
 
