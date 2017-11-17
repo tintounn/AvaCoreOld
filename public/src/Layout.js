@@ -2,14 +2,10 @@ import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom';
 import {Container, Navbar, Button, Collapse, NavItem, NavbarBrand, Nav, NavLink, NavbarToggler} from 'reactstrap';
 
-import House from './House';
-
 class Dashboard extends Component {
   
   constructor(props) {
     super(props);
-
-    console.log(props);
 
     this.toggleNavbar = this.toggleNavbar.bind(this);
     this.state = {
@@ -32,10 +28,10 @@ class Dashboard extends Component {
           <Collapse isOpen={!this.state.collapsed} className="navbar-collapse" navbar>
             <Nav className="mr-auto mt-2 mt-lg-0" navbar>
               <NavItem>
-                <Link to="/">System</Link>
+                <NavLink><Link to="/system">System</Link></NavLink>
               </NavItem>
               <NavItem>
-                <Link to="/house">House</Link>
+                <NavLink><Link to="/house">House</Link></NavLink>
               </NavItem>
               <NavItem>
                 <NavLink  href="#">Disabled</NavLink>
@@ -45,7 +41,7 @@ class Dashboard extends Component {
         </Navbar>
 
         <Container>
-          <Route path="/house" component={House}/>
+          {this.props.children}
         </Container>
       </div>
     );

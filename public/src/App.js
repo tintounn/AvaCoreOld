@@ -3,11 +3,15 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  Redirect
+  Redirect,
+  HashRouter,
+  Switch
 } from 'react-router-dom';
 
 import Login from './pages/Login';
-import Dashboard from './pages/Dashboard';
+import Layout from './Layout';
+import System from './pages/System';
+import House from './pages/House';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import './App.css';
@@ -24,16 +28,24 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
+      <HashRouter>
         <div style={{height: "100%", width: "100%"}}>
           {!this.state.loggedIn && 
             <Redirect to="/login"/>
           }
 
-          <Route exact path="/" component={Dashboard}/>
-          <Route exact path="/login" component={Login}/>
+          <Switch>
+            <Route exact path="/login" component={Login}/>
+            <Route path="/" render={props => (
+              <Layout>
+                <Route exact path="/system" component={System} />
+                <Route exact path='/house' component={House} />
+              </Layout>
+            )}/>
+          </Switch>
+          
         </div>
-      </Router>
+      </HashRouter>
     );
   }
 }

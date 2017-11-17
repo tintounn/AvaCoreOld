@@ -16,7 +16,7 @@ const Tools = require('./tools');
 class App {
   constructor() {
     let file = fs.readFileSync('./ascii.txt', { encoding: 'utf-8' });
-    console.log(file);
+    //console.log(file);
 
     this.startApp();
   }
@@ -58,8 +58,7 @@ class App {
     });
 
     this.database = new Database();
-    this.database.init(this.config, models); 
-    this.log.success('connection to database successful !');
+    return this.database.init(this.config, models).then(() => this.log.success('connection to database successful !')); 
   }
 
   initRoutes() {

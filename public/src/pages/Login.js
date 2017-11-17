@@ -51,7 +51,7 @@ class Login extends Component {
     return (
         <Container id="login">
           {this.state.logged && 
-            <Redirect to="/"/>
+            <Redirect to="/system"/>
           }
 
           <Row className="h-100 justify-content-center align-items-center">
