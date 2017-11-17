@@ -11,7 +11,6 @@ const Database = require('./database');
 const Log = require('./log');
 const Jwt = require('./jwt');
 const Tools = require('./tools');
-const DeviceManager = require('./app/class/DeviceManager');
 
 //const ZwaveGateway = require('./app/gateways/ZwaveGateway');
 const androidTvGateway = require('./app/gateways/androidtv.gateway');
@@ -50,7 +49,6 @@ class App {
     this.jwt = new Jwt();
     this.tools = Tools;
     this.log = new Log();
-    this.deviceManager = new DeviceManager();
     this.root = __dirname;
   }
 
@@ -100,7 +98,7 @@ class App {
     });
 
     for (let service in services) {
-      let serviceName = service.split('.')[0];
+      let serviceName = service.split('.')[0] + service.split('.')[1];
       global[serviceName.charAt(0).toUpperCase() + serviceName.slice(1)] = new services[service]();
     }
   }

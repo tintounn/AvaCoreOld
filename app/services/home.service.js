@@ -3,6 +3,7 @@ const DeviceManager = require('../class/DeviceManager');
 
 class HomeService {
   constructor() {
+    this.deviceManager = new DeviceManager();
     this.rooms = [];
   }
 

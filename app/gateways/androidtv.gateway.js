@@ -38,13 +38,11 @@ class AndroidTvGateway extends EventEmitter {
     let object = new AndroidTvObject(socket.id, this);
     this.devices.push(object);
 
-    ava.deviceManager.add(object);
     socket.on('disconnect', () => this.handleOnCloseConnection(object));
   }
 
   handleOnCloseConnection(object) {
     let index = this.devices.indexOf(object);
-    ava.deviceManager.remove(object.nodeId);
     this.devices.splice(index, 1);
   }
 }

@@ -22,7 +22,6 @@ class ZwaveGateway extends EventEmitter {
         let object = new this.objectsConfig[ava.tools.replaceAll(nodeInfo.manufacturer, ' ', '_')][nodeInfo.productid](nodeId, this, nodeInfo.loc);
         this.objects.push(object);
 
-        ava.deviceManager.add(object);
         this.emit('zwave:new', this.objects[this.objects.length - 1]);
       } catch(e) {
         ava.log.warning(e);
@@ -41,7 +40,6 @@ class ZwaveGateway extends EventEmitter {
           this.emit('zwave:removed', object);
 
           this.objects.splice(i, 1);
-          ava.deviceManager.remove(nodeId);
         }
       }
     });
