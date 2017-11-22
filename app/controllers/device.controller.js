@@ -28,10 +28,15 @@ class DeviceController {
 
   static setValue(req, res) {
     let nodeId = req.params.nodeId;
+    let method = req.body.method;
+    let value = req.body.value;
 
-    ava.zwaveGateway.getObjectByNodeId(nodeId).sendValue(req.body.valueId, req.body.value);
-
-    res.sendStatus(200);
+    try {
+      HomeService.deviceManager.getObjectByNodeId(nodeId)[method](value);
+      return res.sendStatus(200);
+    } catch (err) {
+      return res.status(500).json({error: err});
+    }
   }
 }
 

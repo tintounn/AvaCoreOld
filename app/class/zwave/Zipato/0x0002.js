@@ -1,47 +1,45 @@
 'use strict'
 
-const ZwaveObject = require('../../ZwaveObject');
+const ZwaveObject = require('../../Device');
 
-class Zipato0x0002 extends ZwaveObject {
+class Zipato0x0002 extends Device {
   constructor(nodeId, gateway, location) {
-    super(nodeId, ['RGBLamp'], gateway, location);
-    this.values = {
-      "51-1-0": {
-        "name": "Color",
-        "classId": 51,
-        "instance": 1,
-        "index": 0,
-        "type": "color",
-        "value": "#000000"
+    super(nodeId, ['Lamp', 'RGBLamp'], gateway, location);
+    this.color = '#000000';
+    this.actions = {
+      'setCustomColor': {
+        type: 'color',
+        method: 'setCustomColor'
       },
-      "51-1-1": {
-        "name": "Color",
-        "classId": 51,
-        "instance": 1,
-        "index": 1,
-        "type": "select",
-        "values": ["Off", "Cool White", "Warm White", "Red", "Blue", "Green"],
-        "value": "Off"
+      'on': {
+        type: 'button',
+        method: 'on'
       },
+      'off': {
+        type: 'button',
+        method: 'off'
+      }
     };
-
-    //this.off();
   }
 
   on() {
-    this.sendValue('51-1-1', 'Warm White');
+    this.setDefinedColor('Warm White');
   }
 
   off() {
-    this.sendValue('51-1-1', 'Off');
+    this.setDefinedColor('Off');
   }
 
-  setColor(color) {
-    this.sendValue('51-1-1', color);
+  setCustomColor(color) {
+    this.gateway.sendValue(this.nodeId, 51, 1, 0, color);
   }
 
-  getColor() {
-    return this.values['51-1-1']['value'];
+  setDefinedColor(color) {
+    this.gateway.sendValue(this.nodeId, 51, 1, 1, color);
+  }
+
+  refreshValues() {
+
   }
 }
 
