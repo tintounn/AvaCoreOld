@@ -12,6 +12,7 @@
   },
   "gateway": {
     "androidtv": 8001,
+    "hotspot": 8002,
     "zwave": "/dev/ttyACM0"
   },
   "admin": {

@@ -1,13 +1,17 @@
 const Device = require('./Device');
 
-class AndroidTvObject extends Device {
+class HotSpotDevice extends Device {
   constructor(nodeId, gateway, location) {
-    super(nodeId, ['TV'], gateway, location);
+    super(nodeId, ['Hotspot'], gateway, location);
     this.urlPlayed = '';
     this.actions = {
       'play': {
         type: 'text',
         method: 'play'
+      },
+      'say': {
+        type: 'text',
+        method: 'say'
       },
       'stop': {
         type: 'button',
@@ -20,6 +24,10 @@ class AndroidTvObject extends Device {
     this.gateway.sendValue(this.nodeId, 'play', url);
   }
 
+  say(msg) {
+    this.gateway.sendValue(this.nodeId, 'say', msg);
+  }
+
   stop() {
     this.gateway.sendValue(this.nodeId, 'stop');
   }
@@ -29,4 +37,4 @@ class AndroidTvObject extends Device {
   }
 }
 
-module.exports = AndroidTvObject;
+module.exports = HotSpotDevice;

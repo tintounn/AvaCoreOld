@@ -13,7 +13,8 @@ const Jwt = require('./jwt');
 const Tools = require('./tools');
 
 //const ZwaveGateway = require('./app/gateways/ZwaveGateway');
-const androidTvGateway = require('./app/gateways/androidtv.gateway');
+const AndroidTvGateway = require('./app/gateways/androidtv.gateway');
+const HotSpotGateway = require('./app/gateways/hotspot.gateway');
 
 class App {
   constructor() {
@@ -122,10 +123,12 @@ class App {
   initGateways() {
     this.log.info('starting gateways....');
     //this.zwaveGateway = new ZwaveGateway(this.config, this.root);
-    this.androidTvGateway = new androidTvGateway(this.config);
+    this.androidTvGateway = new AndroidTvGateway(this.config);
+    this.hotSpotGateway = new HotSpotGateway(this.config);
 
     //this.zwaveGateway.listen();
     this.androidTvGateway.listen(this.httpServer);
+    this.hotSpotGateway.listen(this.httpServer);
     this.log.success('gateways started !');
   }
 
