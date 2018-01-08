@@ -6,25 +6,31 @@ class Log {
   constructor() {}
 
   error(msg) {
-    console.log(Colors.red('[error]') + msg);
-    fs.appendFileSync('./logs/errors.txt', '[error]' + msg + '\r\n', {encoding: 'utf-8'});
+    this.log('error', 'red', msg);
   }
 
   warning(msg) {
-    console.log(Colors.yellow('[warning]') + msg);
-    fs.appendFileSync('./logs/errors.txt', '[warning]' + msg + '\r\n', {encoding: 'utf-8'});
+    this.log('warning', 'yellow', msg);
   }
 
   success(msg) {
-    console.log(Colors.green('[success]') + msg);
-    fs.appendFileSync('./logs/success.txt', '[success]' + msg + '\r\n', {encoding: 'utf-8'});
+    this.log('success', 'green', msg);
   }
 
   info(msg) {
-    console.log(Colors.blue('[info]') + msg);
-    fs.appendFileSync('./logs/success.txt', '[info]' + msg + '\r\n', {encoding: 'utf-8'});
+    this.log('info', 'blue', msg);
   }
 
+  log(type, color, msg) {
+    let date = new Date().toISOString();
+
+    console.log(`[${date}]` + Colors[color](`[${type}]`) + msg);
+    if(type == 'error' || type == 'warning') {
+      fs.appendFileSync('./logs/errors.txt', `[${date}][${type}] ${msg} \r\n`, {encoding: 'utf-8'});
+    } else {
+      fs.appendFileSync('./logs/success.txt', `[${date}][${type}] ${msg} \r\n`, {encoding: 'utf-8'});
+    }
+  }
 }
 
 module.exports = Log;

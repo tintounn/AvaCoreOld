@@ -19,7 +19,7 @@ const HotSpotGateway = require('./app/gateways/hotspot.gateway');
 class App {
   constructor() {
     let file = fs.readFileSync('./ascii.txt', { encoding: 'utf-8' });
-    console.log(file);
+    //console.log(file);
 
     this.startApp();
   }
