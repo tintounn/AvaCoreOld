@@ -30,7 +30,6 @@ class ZwaveGateway extends EventEmitter {
 
     this.zwave.on('value refreshed', (nodeId, commandClass, valueId) => {
       let device = this.getObjectByNodeId(nodeId);
-      //TODO: A faire en prio
     });
 
     this.zwave.on('node removed', (nodeId) => {

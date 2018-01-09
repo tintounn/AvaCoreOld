@@ -113,7 +113,7 @@ class App {
       this.express.use(bodyParser.urlencoded({ extended: false }));
       this.express.use(bodyParser.json());
       this.express.use('/', this.router);
-      this.express.use(express.static(path.join(__dirname, 'public', 'build')));
+      this.express.use(express.static(path.join(__dirname, 'public', 'dist')));
 
       this.httpServer = http.createServer(this.express);
       this.httpServer.listen(port, () => {this.log.success(`http server launched on port ${port} !`); resolve()});

@@ -1,15 +1,13 @@
 const EventEmitter = require('events').EventEmitter;
 const Server = require('socket.io');
 
-const AndroidTvObject = require('../class/AndroidTvObject');
+const AndroidTvObject = require('../class/AndroidTvDevice');
 
 class AndroidTvGateway extends EventEmitter {
   constructor(config) { 
     super();
     this.port = config.get('gateway:androidtv');
     this.devices = [];
-
-    this.handleOnNewConnection = this.handleOnNewConnection.bind(this);
   }
 
   listen(http) {
@@ -17,7 +15,7 @@ class AndroidTvGateway extends EventEmitter {
     this.io.attach(http);
     this.io.listen(this.port);
   
-    this.io.on('connection', this.handleOnNewConnection);
+    this.io.on('connection', (socket) => this.handleOnNewConnection(socket));
   }
 
   sendValue(nodeId, value, data) {

@@ -14,7 +14,8 @@ class RoomController {
   static create(req, res) {
     let data = req.body;
 
-    Room.create(data).then((room) => {
+    let room = new Room(data);
+    room.save().then((room) => {
       res.status(200).json({room: room});
     }).catch((err) => {
       res.status(500).json(err);
@@ -25,12 +26,9 @@ class RoomController {
     let id = req.params.id;
     let data = req.body;
 
-    Room.findById(id).then((room) => {
-      delete data.id;
-      return room.update(data);
-    }).then(() => {
-      data.id = id;
-      res.status(200).json({room: data});
+    delete data.id;
+    Room.FindOneAndUpdate({_id: id}, data).then((room) => {
+      res.status(200).json({room: room});
     }).catch((err) => {
       res.status(500).json(err);
     });
@@ -39,8 +37,7 @@ class RoomController {
   static delete(req, res) {
     let id = req.params.id;
 
-    Room.findById(id).then((room) => {
-      room.destroy();
+    Room.remove({_id: id}).then(() => {
       res.sendStatus(200);
     }).catch((err) => {
       res.status(500).json(err);

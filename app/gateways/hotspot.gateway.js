@@ -8,8 +8,6 @@ class HopSpotGateway extends EventEmitter {
     super();
     this.port = config.get('gateway:hotspot');
     this.devices = [];
-
-    this.handleOnNewConnection = this.handleOnNewConnection.bind(this);
   }
 
   listen(http) {
@@ -17,7 +15,7 @@ class HopSpotGateway extends EventEmitter {
     this.io.attach(http);
     this.io.listen(this.port);
   
-    this.io.on('connection', this.handleOnNewConnection);
+    this.io.on('connection', (socket) => this.handleOnNewConnection(socket));
   }
 
   sendValue(nodeId, value, data) {

@@ -1,6 +1,6 @@
 const Device = require('./Device');
 
-class AndroidTvObject extends Device {
+class AndroidTvDevice extends Device {
   constructor(nodeId, gateway, location) {
     super(nodeId, ['TV'], gateway, location);
     this.urlPlayed = '';
@@ -29,4 +29,4 @@ class AndroidTvObject extends Device {
   }
 }
 
-module.exports = AndroidTvObject;
+module.exports = AndroidTvDevice;
