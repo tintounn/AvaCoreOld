@@ -14,3 +14,12 @@ export class Room {
     this.image = data.image;
   }
 }
+
+@Injectable()
+export class RoomFactory {
+
+  constructor(private requestService: RequestService) {
+
+  }
+
+}

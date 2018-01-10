@@ -1,29 +1,39 @@
 <clr-header class="header-1">
-  <div class="branding">
-    <a href="..." class="nav-link">
-    <clr-icon shape="vm-bug"></clr-icon>
-    <span class="title">Project Clarity</span>
-    </a>
-  </div>
-  <div class="header-actions">
-      <clr-dropdown>
-          <button class="nav-icon" clrDropdownTrigger>
-              <clr-icon shape="info-circle"></clr-icon>
-              <clr-icon shape="caret down"></clr-icon>
-          </button>
-          <clr-dropdown-menu *clrIfOpen clrPosition="bottom-right">
-              <a href="..." clrDropdownItem>About</a>
-              <a href="..." clrDropdownItem>Preferences</a>
-              <a href="..." clrDropdownItem>Log out</a>
-          </clr-dropdown-menu>
-      </clr-dropdown>
-  </div>
+	<div class="branding">
+		<a routerLink="" class="nav-link">
+			<clr-icon shape="vm-bug"></clr-icon>
+			<span class="title">Project Ava</span>
+		</a>
+	</div>
+	<div class="header-actions">
+		<a class="nav-link nav-icon">
+			<clr-icon shape="bell"></clr-icon>
+		</a>
+		<a class="nav-link nav-icon">
+			<clr-icon shape="cog"></clr-icon>
+		</a>
+	</div>
 </clr-header>
 <div class="content-container">
-    <div class="content-area">
-        <router-outlet></router-outlet>
-    </div>
-    <nav class="sidenav" [clr-nav-level]="1">
-        ...
-    </nav>
+	<div class="content-area">
+		<router-outlet></router-outlet>
+	</div>
+	<clr-vertical-nav id="vertical-nav" [clr-nav-level]="1" [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="collapsed">
+		<a clrVerticalNavLink routerLink="house">
+			<clr-icon clrVerticalNavIcon shape="home"></clr-icon>
+			House <span class="badge">1</span>
+		</a>
+		<a clrVerticalNavLink routerLink="nas">
+			<clr-icon clrVerticalNavIcon shape="hard-disk"></clr-icon>
+			NAS <span class="badge badge-info">1</span>
+		</a>
+		<a clrVerticalNavLink routerLink="drone">
+			<clr-icon clrVerticalNavIcon shape="dna"></clr-icon>
+			Drone <span class="badge">1</span>
+		</a>
+		<a clrVerticalNavLink routerLink="script">
+			<clr-icon clrVerticalNavIcon shape="code"></clr-icon>
+			Script <span class="badge">1</span>
+		</a>
+	</clr-vertical-nav>
 </div>

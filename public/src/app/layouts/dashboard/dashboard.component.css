@@ -1,0 +1,7 @@
+.content-container {
+  height: 100%;
+}
+
+:host {
+  height: 100%;
+}
