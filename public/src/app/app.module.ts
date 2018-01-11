@@ -22,6 +22,9 @@ import { RoomCardComponent } from './components/room-card/room-card.component';
 import {RoomFactory} from './models/room.model';
 import { DownloadComponent } from './pages/download/download.component';
 import { NasComponent } from './pages/nas/nas.component';
+import { CpuInfoComponent } from './components/cpu-info/cpu-info.component';
+import { NetworkInfoComponent } from './components/network-info/network-info.component';
+import { HardDriveInfoComponent } from './components/hard-drive-info/hard-drive-info.component';
 
 
 @NgModule({
@@ -37,7 +40,10 @@ import { NasComponent } from './pages/nas/nas.component';
     RoomComponent,
     RoomCardComponent,
     DownloadComponent,
-    NasComponent
+    NasComponent,
+    CpuInfoComponent,
+    NetworkInfoComponent,
+    HardDriveInfoComponent
   ],
   imports: [
     BrowserModule,

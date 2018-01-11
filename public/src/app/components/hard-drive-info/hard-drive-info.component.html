@@ -1,0 +1,20 @@
+<div class="row">
+  <div *ngFor="let item of hardDrives" class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <div class="card">
+      <div class="card-header">
+        {{item.description}}
+      </div>
+      <div class="card-block">
+        <div class="card-text">
+          {{item.path}}
+        </div>
+        <div class="card-footer">
+          <div class="progress labeled">
+            <progress max="100" value="{{getValue(item)}}" data-displayval="0%"></progress>
+            <span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

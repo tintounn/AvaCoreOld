@@ -1,3 +1,5 @@
+
+
 class CoreController {
   constructor() {}
 
@@ -6,7 +8,26 @@ class CoreController {
       'get /api/': CoreController.test,
       'post /api/auth': CoreController.auth,
       'get /api/authenticated': CoreController.authenticated,
+      'get /api/core/harddrive': CoreController.hardDriveInfo,
+      'get /api/core/network': CoreController.networkInfo,
+      'get /api/core/performance': CoreController.performanceInfo,
     }
+  }
+
+  static hardDriveInfo(req, res) {
+    Systemservice.getHardDriveInfo().then((mnts) => {
+      res.status(200).json(mnts);
+    }).catch((err) => {
+      res.status(500).json(err);
+    });
+  }
+
+  static networkInfo(req, res) {
+    res.status(200).json(Systemservice.getNetworkInfo());
+  }
+
+  static performanceInfo(req, res) {
+    res.status(200).json(Systemservice.getPerformanceInfo());
   }
 
   static index(req, res) {
