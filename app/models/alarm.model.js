@@ -1,9 +1,8 @@
 const Schema = require('mongoose').Schema;
 
 module.exports = {
-  name: "alarms",
+  name: "Alarm",
   schema: {
-    _id: Schema.Types.ObjectId,
     name:  String,
     time: String,
     days: String,

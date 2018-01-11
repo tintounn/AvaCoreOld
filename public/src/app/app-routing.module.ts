@@ -5,11 +5,17 @@ import {DashboardComponent} from './layouts/dashboard/dashboard.component';
 
 import {HomeComponent} from './pages/home/home.component';
 import {HouseComponent} from './pages/house/house.component';
+import { RoomComponent } from './pages/room/room.component';
+import { NasComponent } from './pages/nas/nas.component';
+import { DownloadComponent } from './pages/download/download.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, children: [
     { path: '', component: HomeComponent },
-    { path: 'house', component: HouseComponent}
+    { path: 'house', component: HouseComponent},
+    { path: 'rooms/:id', component: RoomComponent},
+    { path: 'nas', component: NasComponent},
+    { path: 'downloads', component: DownloadComponent}
   ]}
 ];
 

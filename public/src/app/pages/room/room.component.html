@@ -1,3 +1,28 @@
-<p>
-  room works!
-</p>
+<h3>{{room.name}}</h3>
+<hr>
+<clr-tabs>
+  <clr-tab>
+    <button clrTabLink id="link1">General</button>
+    <clr-tab-content *clrIfActive>
+      ...
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink>HotSpot</button>
+    <clr-tab-content *clrIfActive>
+      ...
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink>Lights</button>
+    <clr-tab-content *clrIfActive>
+      ...
+    </clr-tab-content>
+  </clr-tab>
+  <clr-tab>
+    <button clrTabLink>TV</button>
+    <clr-tab-content *clrIfActive>
+      ...
+    </clr-tab-content>
+  </clr-tab>
+</clr-tabs>

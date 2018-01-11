@@ -1,1 +1,16 @@
-<h3>Manage your <b>house</b> !</h3>
+<h3>Manage your <b>house</b> ! </h3>
+<button (click)="openRoomEditorModal()" class="btn btn-outline">Add new room</button>
+<hr>
+
+<div class="row">
+  <div *ngFor="let room of rooms" class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+    <app-room-card (click)="onRoomClicked(room)" [room]="room"></app-room-card>
+  </div>
+</div>
+
+<clr-modal #roomEditorModal>
+  <h3 class="modal-title">Edit a room</h3>
+  <div class="modal-body">
+    <app-room-editor (saved)="onRoomSaved($event)"></app-room-editor>
+  </div>
+</clr-modal>

@@ -1,3 +1,5 @@
+const Mongoose = require('mongoose');
+
 class RoomController {
   constructor() { }
 
@@ -16,7 +18,7 @@ class RoomController {
 
     let room = new Room(data);
     room.save().then((room) => {
-      res.status(200).json({room: room});
+      res.status(201).json({room: room});
     }).catch((err) => {
       res.status(500).json(err);
     });
@@ -28,7 +30,7 @@ class RoomController {
 
     delete data.id;
     Room.FindOneAndUpdate({_id: id}, data).then((room) => {
-      res.status(200).json({room: room});
+      res.status(201).json({room: room});
     }).catch((err) => {
       res.status(500).json(err);
     });
@@ -47,7 +49,7 @@ class RoomController {
   static findOne(req, res) {
     let id = req.params.id;
 
-    Room.findById(id).then((room) => {
+    Room.findById(id).populate('alarms').then((room) => {
       res.status(200).json({room: room});
     }).catch((err) => {
       res.status(500).json(err);
@@ -55,7 +57,8 @@ class RoomController {
   }
 
   static findAll(req, res) {
-    Room.findAll().then((rooms) => {
+    Room.find().then((rooms) => {
+      console.log(rooms);
       res.status(200).json({rooms: rooms});
     }).catch((err) => {
       res.status(500).json(err);

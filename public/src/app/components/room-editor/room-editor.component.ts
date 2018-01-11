@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-import { Room } from '../../models/room.model';
+import { Room, RoomFactory } from '../../models/room.model';
 
 @Component({
   selector: 'app-room-editor',
@@ -9,9 +9,20 @@ import { Room } from '../../models/room.model';
 })
 export class RoomEditorComponent implements OnInit {
 
-  constructor() { }
+  @Input('room') room: Room = new Room();
+  @Output('saved') savedEvent: EventEmitter<Room> = new EventEmitter<Room>();
+
+  constructor(private roomFactory: RoomFactory) { }
 
   ngOnInit() {
+  }
+
+  onSubmit() { 
+    this.roomFactory.createOrUpdate(this.room).then((room) => {
+      this.savedEvent.emit(room);
+    }).catch((err) => {
+      console.error(err);
+    })
   }
 
 }

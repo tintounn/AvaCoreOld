@@ -1,7 +1,11 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpModule } from "@angular/http";
+import { FormsModule }   from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from '@clr/angular';
 
+import { RequestService } from './services/request.service';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -15,6 +19,10 @@ import { RoomEditorComponent } from './components/room-editor/room-editor.compon
 import { RoomComponent } from './pages/room/room.component';
 import { RoomCardComponent } from './components/room-card/room-card.component';
 
+import {RoomFactory} from './models/room.model';
+import { DownloadComponent } from './pages/download/download.component';
+import { NasComponent } from './pages/nas/nas.component';
+
 
 @NgModule({
   declarations: [
@@ -27,14 +35,19 @@ import { RoomCardComponent } from './components/room-card/room-card.component';
     NotificationsListComponent,
     RoomEditorComponent,
     RoomComponent,
-    RoomCardComponent
+    RoomCardComponent,
+    DownloadComponent,
+    NasComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    HttpModule,
+    BrowserAnimationsModule,
     ClarityModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [],
+  providers: [RequestService, RoomFactory],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
