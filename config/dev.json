@@ -22,7 +22,7 @@
     "root": "./files",
     "queueSize": 5,
     "music": null,
-    "video": null,
+    "movie": "/movies",
     "picture": null,
     "game": null
   },

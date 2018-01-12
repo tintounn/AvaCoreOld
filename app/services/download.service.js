@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const urlParse = require('url').parse;
+const request = require('request');
 
 class DownloadService {
   constructor() { 
@@ -14,47 +15,87 @@ class DownloadService {
   }
 
   process() {
-    if(this.nbDownloadInProgress < 5 && this.queue.length > 0) {
+    if(this.nbDownloadInProgress < 5 && this.queue.length > this.nbDownloadInProgress) {
+      let download = this.queue[this.nbDownloadInProgress];
       this.nbDownloadInProgress++;
-      let file = this.queue.shift();
 
-      let writeStream = fs.createWriteStream(file.path);
-      let request = http.get(file.url, (res) => {
-        res.pipe(writeStream);
-        writeStream.on('finish', () => {
-          writeStream.close();
-          this.next();
-        });
+      let writeStream = fs.createWriteStream(download.file.path);
+      let lastInterval = 0, downloaded = 0;
+      let options = { method:'get', url: download.file.url };
+      let req = request(options);
+
+      req.on('data', (chunck) => {
+        writeStream.write(chunck);
+        downloaded+=chunck.length;
+      });
+
+      progressInterval = setInterval(() => {
+        let intervalDiff = downloaded - lastInterval;
+        lastInterval = downloaded;
+
+        console.log((100.0 * downloaded / download.file.size).toFixed(2) + ":" + (intervalDiff/1024).toFixed(2) + "ko/s");
+      }, 1000);
+
+      writeStream.on('finish', () => {
+        ava.log.info('Finish');
+        writeStream.close();
+        this.next(download);
+        clearInterval(progressInterval);
       });
 
       /** Network error */
-      request.on('error', () => {
-        fs.unlink(file.path);
-        this.next();
+      req.on('error', (err) => {
+        ava.log.error(err);
+        fs.unlink(download.file.path);
+        this.next(download);
+        clearInterval(progressInterval);
       });
 
       /** WriteStream error */
-      writeStream.on('error', () => {
-        fs.unlink(file.path);
-        this.next();
+      writeStream.on('error', (err) => {
+        ava.log.error(err);
+        fs.unlink(download.file.path);
+        this.next(download);
+        clearInterval(progressInterval);
       });
+
     } else {
       console.log('Download queue full !');
     }
   }
 
+  onDownloadProgress(progress) {
+    console.log(progress);
+  }
+
   getDownloadHeader(url) {
     return new Promise((resolve, reject) => {
-      let options = {method: 'HEAD', hostname: url};
-      http.request(options, (response) => {
-        console.log(response.headers);
+      request.head(url, (err, res) => {
+        if(err) {
+          return reject(err);
+        }
+
+        let size = res.headers['content-length'];
+  
+        let urls = url.split('/');
+        let name = urls[urls.length - 1];
+  
+        resolve({size: size, name: name});
       }).on('error', (err) => {
-        reject(err);
+        throw new Error(err);
       });
     });
   }
 
-  next() {
+  next(last) {
+    if(last) {
+      for(let i = 0; i < this.queue.length; i++) {
+        if(this.queue[i]._id == last._id) {
+          this.queue.splice(i, 1);
+        }
+      }
+    }
+
     this.nbDownloadInProgress--;
     this.process();
   }

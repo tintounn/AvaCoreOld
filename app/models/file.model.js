@@ -4,7 +4,9 @@ module.exports = {
   name: "File",
   schema: {
     name: String,
-    size: String,
-    parent: { type: Schema.Types.ObjectId, ref: 'Folder' },
+    url: String,
+    size: Number,
+    path: String,
+    parent: { type: Schema.Types.ObjectId, ref: 'Folder' }
   }
 };

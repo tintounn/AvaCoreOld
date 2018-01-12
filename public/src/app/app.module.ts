@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ClarityModule } from '@clr/angular';
 
 import { RequestService } from './services/request.service';
+import { SocketService } from './services/socket.service';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
@@ -25,6 +26,9 @@ import { NasComponent } from './pages/nas/nas.component';
 import { CpuInfoComponent } from './components/cpu-info/cpu-info.component';
 import { NetworkInfoComponent } from './components/network-info/network-info.component';
 import { HardDriveInfoComponent } from './components/hard-drive-info/hard-drive-info.component';
+import { MoviesListComponent } from './components/movies-list/movies-list.component';
+import { MovieEditorComponent } from './components/movie-editor/movie-editor.component';
+import { MovieFactory } from './models/movie.model';
 
 
 @NgModule({
@@ -43,7 +47,9 @@ import { HardDriveInfoComponent } from './components/hard-drive-info/hard-drive-
     NasComponent,
     CpuInfoComponent,
     NetworkInfoComponent,
-    HardDriveInfoComponent
+    HardDriveInfoComponent,
+    MoviesListComponent,
+    MovieEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +59,7 @@ import { HardDriveInfoComponent } from './components/hard-drive-info/hard-drive-
     ClarityModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [RequestService, RoomFactory],
+  providers: [RequestService, RoomFactory, MovieFactory, SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

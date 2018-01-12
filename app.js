@@ -2,6 +2,7 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 const nconf = require('nconf');
+const Server = require('socket.io');
 const bodyParser = require('body-parser');
 const express = require('express');
 const auth = require('./app/policies/auth');
@@ -31,6 +32,7 @@ class App {
       await this.initDatabase();
       await this.initServices();
       await this.initHttpServer();
+      await this.initSocketServer();
       await this.initGateways();
       await this.initFinalSteps();
 
@@ -117,6 +119,15 @@ class App {
 
       this.httpServer = http.createServer(this.express);
       this.httpServer.listen(port, () => {this.log.success(`http server launched on port ${port} !`); resolve()});
+    });
+  }
+
+  initSocketServer() {
+    return new Promise((resolve, reject) => {
+      this.admins = new Server();
+      this.admins.listen(this.httpServer);
+
+      resolve();
     });
   }
 

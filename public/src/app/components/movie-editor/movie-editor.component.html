@@ -1,0 +1,27 @@
+<form #movieForm="ngForm" (ngSubmit)="onSubmit()">
+    <section class="form-block">
+        <div class="form-group">
+            <label for="movieUrlInput">Movie's url</label>
+            <input type="text" name="movieUrlInput" id="movieUrlInput" [(ngModel)]="movie.url" placeholder="Enter value here" size="45">
+        </div>
+        <div class="form-group">
+            <label for="movieNameInput">Movie's name</label>
+            <input type="text" name="movieNameInput" id="movieNameInput" [(ngModel)]="movie.name" placeholder="Enter value here" size="45">
+        </div>
+        <div class="form-group">
+            <label for="movieImageInput">Movie's image</label>
+            <input type="text" name="movieImageInput" id="movieImageInput" [(ngModel)]="movie.image" placeholder="Enter value here" size="45">
+        </div>
+        <div class="form-group">
+            <label for="movieDateInput">Movie's release date</label>
+            <input type="date" name="movieDateInput" id="movieDateInput" [(ngModel)]="movie.releaseDate" placeholder="Enter value here" size="45">
+        </div>
+
+        <div class="form-group">
+            <label for="movieDescriptionInput">Movie's description</label>
+            <textarea id="movieDescriptionInput" name="movieDescriptionInput" rows="5"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+    </section>
+</form>

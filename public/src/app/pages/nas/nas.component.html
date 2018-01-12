@@ -4,7 +4,10 @@
     <clr-tab>
       <button clrTabLink id="link1">Movies</button>
       <clr-tab-content *clrIfActive>
-        ...
+        
+          <button (click)="openMovieEditorModal()" class="btn btn-outline">Add new movie</button>
+          <hr>
+
       </clr-tab-content>
     </clr-tab>
     <clr-tab>
@@ -26,3 +29,11 @@
       </clr-tab-content>
     </clr-tab>
   </clr-tabs>
+
+
+  <clr-modal #movieEditorModal>
+    <h3 class="modal-title">Edit a movie</h3>
+    <div class="modal-body">
+      <app-movie-editor (saved)="onMovieSaved($event)"></app-movie-editor>
+    </div>
+  </clr-modal>

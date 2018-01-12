@@ -18,6 +18,7 @@ class CoreController {
     Systemservice.getHardDriveInfo().then((mnts) => {
       res.status(200).json(mnts);
     }).catch((err) => {
+      ava.log.error(err);
       res.status(500).json(err);
     });
   }
@@ -27,7 +28,11 @@ class CoreController {
   }
 
   static performanceInfo(req, res) {
-    res.status(200).json(Systemservice.getPerformanceInfo());
+    Systemservice.getPerformanceInfo().then((perfs) => {
+      res.status(200).json(perfs);
+    }).catch((err) => {
+      res.status(500).json(err);
+    });
   }
 
   static index(req, res) {

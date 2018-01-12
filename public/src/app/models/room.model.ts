@@ -6,7 +6,7 @@ import { Alarm } from './alarm.model';
 
 export class Room {
   
-  public id: number;
+  public id: string;
   public name: string;
   public image: string;
   public alarms: Alarm[];
