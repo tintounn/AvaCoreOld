@@ -85,7 +85,8 @@ class DownloadService {
   
         resolve({size: size, name: name});
       }).on('error', (err) => {
-        throw new Error(err);
+        ava.log.error(err);
+        reject(err);
       });
     });
   }

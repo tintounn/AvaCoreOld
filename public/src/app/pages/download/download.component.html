@@ -8,25 +8,15 @@
   
   <clr-dg-row *ngFor="let download of downloads">
     <clr-dg-cell>{{download.name}}</clr-dg-cell>
-    <clr-dg-cell>{{download.size}}</clr-dg-cell>
-    <clr-dg-cell>{{download.speed}}</clr-dg-cell>
+    <clr-dg-cell>{{download.size | size}}</clr-dg-cell>
+    <clr-dg-cell>{{download.speed | speed}}</clr-dg-cell>
     <clr-dg-cell>
       <div class="progress flash-success">
-        <progress max="100" value="20" data-displayval="0%"></progress>
+        <progress max="100" value="{{download.progression}}" data-displayval="0%"></progress>
       </div>
     </clr-dg-cell>
   </clr-dg-row>
-
-  <clr-dg-row>
-      <clr-dg-cell>Iron man</clr-dg-cell>
-      <clr-dg-cell>2.8Gb</clr-dg-cell>
-      <clr-dg-cell>2.3Mb/s</clr-dg-cell>
-      <clr-dg-cell>
-        <div class="progress flash-success">
-          <progress max="100" value="100" data-displayval="0%"></progress>
-        </div>
-      </clr-dg-cell>
-    </clr-dg-row>
   
-  <clr-dg-footer>2 download</clr-dg-footer>
+  
+  <clr-dg-footer>{{downloads.length}} download</clr-dg-footer>
 </clr-datagrid>

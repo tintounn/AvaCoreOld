@@ -1,27 +1,51 @@
-<form #movieForm="ngForm" (ngSubmit)="onSubmit()">
-    <section class="form-block">
-        <div class="form-group">
-            <label for="movieUrlInput">Movie's url</label>
-            <input type="text" name="movieUrlInput" id="movieUrlInput" [(ngModel)]="movie.url" placeholder="Enter value here" size="45">
-        </div>
-        <div class="form-group">
-            <label for="movieNameInput">Movie's name</label>
-            <input type="text" name="movieNameInput" id="movieNameInput" [(ngModel)]="movie.name" placeholder="Enter value here" size="45">
-        </div>
-        <div class="form-group">
-            <label for="movieImageInput">Movie's image</label>
-            <input type="text" name="movieImageInput" id="movieImageInput" [(ngModel)]="movie.image" placeholder="Enter value here" size="45">
-        </div>
-        <div class="form-group">
-            <label for="movieDateInput">Movie's release date</label>
-            <input type="date" name="movieDateInput" id="movieDateInput" [(ngModel)]="movie.releaseDate" placeholder="Enter value here" size="45">
-        </div>
-
-        <div class="form-group">
-            <label for="movieDescriptionInput">Movie's description</label>
-            <textarea id="movieDescriptionInput" name="movieDescriptionInput" rows="5"></textarea>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Save</button>
-    </section>
+<form #movieForm="ngForm">
+	<section class="form-block">
+		<div class="form-group">
+			<label for="movieUrlInput">Movie's url</label>
+			<input type="text" name="movieUrlInput" id="movieUrlInput" [(ngModel)]="movie.url" placeholder="Enter value here" size="45">
+		</div>
+		<div class="form-group">
+			<label for="movieNameInput">Movie's name</label>
+			<input type="text" name="movieNameInput" id="movieNameInput" [(ngModel)]="movie.name" placeholder="Enter value here" size="45">
+			<a (click)="search()" class="btn btn-primary">Search</a>
+		</div>
+		<div class="form-group">
+			<label for="movieImageInput">Movie's image</label>
+			<input type="text" name="movieImageInput" id="movieImageInput" [(ngModel)]="movie.image" placeholder="Enter value here" size="45">
+		</div>
+		<div class="form-group">
+			<label for="movieDateInput">Movie's release date</label>
+			<input type="date" name="movieDateInput" id="movieDateInput" [(ngModel)]="movie.releaseDate" placeholder="Enter value here" size="45">
+		</div>
+		
+		<div class="form-group">
+			<label for="movieDescriptionInput">Movie's description</label>
+			<textarea id="movieDescriptionInput" [(ngModel)]="movie.description" name="movieDescriptionInput" rows="5"></textarea>
+		</div>
+		
+		<button (click)="onSubmit()" class="btn btn-primary">Save</button>
+	</section>
 </form>
+
+<clr-modal [clrModalSize]="'xl'" #tmdbModal>
+	<h3 class="modal-title">Select a movie</h3>
+	<div class="modal-body">
+		<div class="row">
+			<div *ngFor="let item of movies" class="col-md-4 col-sm-6 col-xs-12">
+				<a class="card clickable" (click)="onMovieSelected(item)">
+					<div class="card-img">
+						<img src="{{imgUrl + item.poster_path}}" alt="..." />
+					</div>
+					<div class="card-header">
+						<p>{{item.title}}</p>
+					</div>
+					<div class="card-block">
+						<h4 class="card-text">
+							{{item.overview}}
+						</h4>
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</clr-modal>

@@ -2,7 +2,7 @@ class MovieController {
   static routes() {
     return {
       'post /api/movies': MovieController.create,
-      'post /api/movies/moviedb': MovieController.movieDb,
+      'post /api/movies/search/:value': MovieController.movieDb,
       'get /api/movies/:id': MovieController.findOne,
       'get /api/movies': MovieController.findAll,
       'delete /api/movies/:id': MovieController.delete,
@@ -34,7 +34,14 @@ class MovieController {
   }
 
   static movieDb(req, res) {
+    let value = req.params.value;
 
+    Tmdbservice.find(value).then((result) => {
+      res.status(200).json({result: result});
+    }).catch((err) => {
+      ava.log.error(err);
+      res.status(500).json(err);
+    });
   }
 
   static update(req, res) {

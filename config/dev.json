@@ -18,6 +18,9 @@
   "admin": {
     "code": "1111"
   },
+  "api": {
+    "tmdb" : "8b4c6dc260c486bcffc612a511b41ab8"
+  },
   "nas": {
     "root": "./files",
     "queueSize": 5,

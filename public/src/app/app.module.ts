@@ -30,6 +30,8 @@ import { MoviesListComponent } from './components/movies-list/movies-list.compon
 import { MovieEditorComponent } from './components/movie-editor/movie-editor.component';
 import { MovieFactory } from './models/movie.model';
 import { FileFactory } from './models/file.model';
+import { SpeedPipe } from './pipes/speed.pipe';
+import { SizePipe } from './pipes/size.pipe';
 
 
 @NgModule({
@@ -50,7 +52,9 @@ import { FileFactory } from './models/file.model';
     NetworkInfoComponent,
     HardDriveInfoComponent,
     MoviesListComponent,
-    MovieEditorComponent
+    MovieEditorComponent,
+    SpeedPipe,
+    SizePipe
   ],
   imports: [
     BrowserModule,
