@@ -11,4 +11,8 @@ export class SocketService {
   init() {
     this.socket = io("", {transports: ['websocket']});
   }
+
+  getSocket() : any {
+    return this.socket;
+  }
 }

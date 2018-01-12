@@ -16,11 +16,11 @@ class DownloadService {
 
   process() {
     if(this.nbDownloadInProgress < 5 && this.queue.length > this.nbDownloadInProgress) {
-      let download = this.queue[this.nbDownloadInProgress];
+      let download =  Object.create(this.queue[this.nbDownloadInProgress]);
       this.nbDownloadInProgress++;
 
       let writeStream = fs.createWriteStream(download.file.path);
-      let lastInterval = 0, downloaded = 0;
+      let lastInterval = 0, downloaded = 0, progressInterval;
       let options = { method:'get', url: download.file.url };
       let req = request(options);
 
@@ -33,7 +33,10 @@ class DownloadService {
         let intervalDiff = downloaded - lastInterval;
         lastInterval = downloaded;
 
-        console.log((100.0 * downloaded / download.file.size).toFixed(2) + ":" + (intervalDiff/1024).toFixed(2) + "ko/s");
+        let speed = intervalDiff;
+        let progression = (100.0 * downloaded / download.file.size).toFixed(2);
+
+        ava.admins.emit('download:progression', {_id: download.file._id, speed: speed, progression: progression});
       }, 1000);
 
       writeStream.on('finish', () => {

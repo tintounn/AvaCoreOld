@@ -22,11 +22,13 @@ class MovieController {
         return movie.save();
       }).then((movie) => {
         Downloadservice.download(movie);
-        res.status(200).json(movie);
+        res.status(200).json({movie: movie});
       }).catch((err) => {
+        ava.log.error(err);
         res.status(500).json(err);
       });
     }).catch((err) => {
+      ava.log.error(err);
       res.status(500).json(err);
     });
   }

@@ -29,6 +29,7 @@ import { HardDriveInfoComponent } from './components/hard-drive-info/hard-drive-
 import { MoviesListComponent } from './components/movies-list/movies-list.component';
 import { MovieEditorComponent } from './components/movie-editor/movie-editor.component';
 import { MovieFactory } from './models/movie.model';
+import { FileFactory } from './models/file.model';
 
 
 @NgModule({
@@ -59,7 +60,7 @@ import { MovieFactory } from './models/movie.model';
     ClarityModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [RequestService, RoomFactory, MovieFactory, SocketService],
+  providers: [RequestService, RoomFactory, MovieFactory, FileFactory, SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

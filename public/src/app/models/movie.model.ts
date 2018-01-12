@@ -19,7 +19,7 @@ export class Movie extends File {
 
     if(data) {
       this.id = data._id;
-      this.image = data.file;
+      this.image = data.image;
       this.description = data.description;
       this.releaseDate = data.releaseDate;
     }
