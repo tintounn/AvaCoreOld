@@ -25,8 +25,8 @@ class NasController {
         .audioChannels(2)
         .outputOptions('-movflags', 'frag_keyframe')
         .addOption(['-preset ultrafast'])
-        .size('?x360')
-        .videoBitrate('1024k')
+        .size('?x720')
+        .videoBitrate('2048k')
         .fps(24)
         .on('stderr', (err) => {
           console.log(err);

@@ -4,7 +4,7 @@
   </div>
 </div>
 
-<clr-modal #videoPlayerModal>
+<clr-modal  #videoPlayerModal>
   <h3 class="modal-title">{{movie.name}}</h3>
   <div class="modal-body">
     <app-video-player [url]="'/api/nas/stream/' + movie.fileId"></app-video-player>
