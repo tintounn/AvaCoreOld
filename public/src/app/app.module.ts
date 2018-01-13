@@ -32,6 +32,8 @@ import { MovieFactory } from './models/movie.model';
 import { FileFactory } from './models/file.model';
 import { SpeedPipe } from './pipes/speed.pipe';
 import { SizePipe } from './pipes/size.pipe';
+import { MovieCardComponent } from './components/movie-card/movie-card.component';
+import { VideoPlayerComponent } from './components/video-player/video-player.component';
 
 
 @NgModule({
@@ -54,7 +56,9 @@ import { SizePipe } from './pipes/size.pipe';
     MoviesListComponent,
     MovieEditorComponent,
     SpeedPipe,
-    SizePipe
+    SizePipe,
+    MovieCardComponent,
+    VideoPlayerComponent
   ],
   imports: [
     BrowserModule,

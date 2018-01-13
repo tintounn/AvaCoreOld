@@ -28,6 +28,7 @@
     "core-js": "^2.4.1",
     "rxjs": "^5.5.2",
     "socket.io-client": "^2.0.4",
+    "video.js": "^6.6.0",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {

@@ -57,11 +57,10 @@ class MovieController {
   }
 
   static findAll(req, res) {
-    let roomId = req.params.roomId;
-
-    Alarm.findAll({where: {roomId: roomId}}).then((alarms) => {
-      res.status(200).json({alarms: alarms});
+    Movie.find().populate('file').then((movies) => {
+      res.status(200).json({movies: movies});
     }).catch((err) => {
+      ava.log.error(err);
       res.status(500).json(err);
     });
   }
