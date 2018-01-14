@@ -15,7 +15,7 @@ class MovieController {
 
     Downloadservice.getDownloadHeader(data.url).then((stat) => {
       let file = new File({size: stat.size, url: data.url, name: data.name, parent: null, path: ava.config.get('nas:root') + ava.config.get('nas:movie') + '/' + stat.name});
-      let movie = new Movie({releaseDate: data.releaseDate, image: data.image, popularity: data.popularity, file: file._id});
+      let movie = new Movie({releaseDate: data.releaseDate, image: data.image, popularity: data.popularity, file: file._id, description: data.description});
 
       file.save().then((file) => {
         movie.file = file;
@@ -53,7 +53,14 @@ class MovieController {
   }
 
   static findOne(req, res) {
+    let id = req.params.id;
 
+    Movie.findById(id).populate('file').then((movie) => {
+      res.status(200).json({movie: movie});
+    }).catch((err) => {
+      ava.log.error(err);
+      res.status(500).json(err);
+    });
   }
 
   static findAll(req, res) {

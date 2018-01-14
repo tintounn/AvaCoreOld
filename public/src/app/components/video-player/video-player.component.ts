@@ -13,11 +13,6 @@ export class VideoPlayerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-  }
-
-  toggleVideo() {
     this.videoplayer.nativeElement.src = this.url;
-    this.videoplayer.nativeElement.play();
   }
-
 }

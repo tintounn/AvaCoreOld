@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Movie, MovieFactory } from '../../models/movie.model';
 import { ClrModal } from '@clr/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movies-list',
@@ -10,10 +11,8 @@ import { ClrModal } from '@clr/angular';
 export class MoviesListComponent implements OnInit {
 
   public movies: Movie[] = [];
-  public movie: Movie = new Movie();
-  @ViewChild("videoPlayerModal") videoPlayerModal : ClrModal;
 
-  constructor(private movieFactory: MovieFactory) { }
+  constructor(private movieFactory: MovieFactory, private router: Router) { }
 
   ngOnInit() {
     this.movieFactory.findAll().then((movies) => {
@@ -23,9 +22,8 @@ export class MoviesListComponent implements OnInit {
     });
   }
 
-  onMovieSelected(movie: Movie) {
-    this.movie = movie;
-    this.videoPlayerModal.open();
+  onMovieClicked(movie: Movie) {
+    this.router.navigate(['/movie', movie.id]);
   }
 
 }

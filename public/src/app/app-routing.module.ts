@@ -8,6 +8,7 @@ import {HouseComponent} from './pages/house/house.component';
 import { RoomComponent } from './pages/room/room.component';
 import { NasComponent } from './pages/nas/nas.component';
 import { DownloadComponent } from './pages/download/download.component';
+import { MovieComponent } from './pages/movie/movie.component';
 
 const routes: Routes = [
   { path: '', component: DashboardComponent, children: [
@@ -15,7 +16,8 @@ const routes: Routes = [
     { path: 'house', component: HouseComponent},
     { path: 'rooms/:id', component: RoomComponent},
     { path: 'nas', component: NasComponent},
-    { path: 'downloads', component: DownloadComponent}
+    { path: 'downloads', component: DownloadComponent},
+    { path: 'movie/:id', component: MovieComponent}
   ]}
 ];
 

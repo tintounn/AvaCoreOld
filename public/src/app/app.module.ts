@@ -34,6 +34,7 @@ import { SpeedPipe } from './pipes/speed.pipe';
 import { SizePipe } from './pipes/size.pipe';
 import { MovieCardComponent } from './components/movie-card/movie-card.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
+import { MovieComponent } from './pages/movie/movie.component';
 
 
 @NgModule({
@@ -58,7 +59,8 @@ import { VideoPlayerComponent } from './components/video-player/video-player.com
     SpeedPipe,
     SizePipe,
     MovieCardComponent,
-    VideoPlayerComponent
+    VideoPlayerComponent,
+    MovieComponent
   ],
   imports: [
     BrowserModule,

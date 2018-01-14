@@ -39,7 +39,7 @@ export class MovieFactory {
     return this.requestService.post('/movies/search/' + value, {}).then((response) => response.json().result);
   }
 
-  public find(id: number) : Promise<Movie> {
+  public find(id: string) : Promise<Movie> {
     return this.requestService.get('/movies/' + id).then((response) => new Movie(response.json().movie));
   }
 

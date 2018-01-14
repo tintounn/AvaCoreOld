@@ -29,7 +29,7 @@ class NasController {
         .videoBitrate('2048k')
         .fps(24)
         .on('stderr', (err) => {
-          console.log(err);
+          
         })
         .on('error', (err) => {
           ava.log.error(err);
