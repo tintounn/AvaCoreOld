@@ -15,7 +15,6 @@ class NasController {
 
   static stream(req, res) {
     let id = req.params.id;
-    console.log(id);
     File.findById(id).then((file) => {
       res.contentType('video/mp4');
       ffmpeg(file.path)

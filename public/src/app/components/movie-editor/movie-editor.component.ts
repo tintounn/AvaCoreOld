@@ -22,7 +22,7 @@ export class MovieEditorComponent implements OnInit {
   }
 
   search() {
-    this.movieFactory.search(this.movie.name).then((result) => {
+    this.movieFactory.search(this.movie.file.name).then((result) => {
       this.movies = result.results;
       this.tmdbModal.open();
     }).catch((err) => {
@@ -39,7 +39,7 @@ export class MovieEditorComponent implements OnInit {
 
   onSubmit() {
     this.movieFactory.createOrUpdate(this.movie).then((movie) => {
-      console.log(movie);
+      this.savedEvent.emit(movie);
     }).catch((err) => {
       console.log(err);
     });

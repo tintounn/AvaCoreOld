@@ -6,5 +6,6 @@ module.exports = {
     name:  String,
     image: String,
     alarms: [{ type: Schema.Types.ObjectId, ref: 'Alarm' }]
-  }
+  },
+  hooks: []
 };

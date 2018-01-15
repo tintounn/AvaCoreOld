@@ -1,5 +1,5 @@
 <div *ngIf="movie">
-  <h3>{{movie.name}}</h3>
+  <h3>{{movie.file.name}}</h3>
   <hr>
 
   <div class="row">
@@ -8,7 +8,7 @@
       <h5>Popularity: {{movie.popularity}}</h5>  
     </div>
     <div class="col-md-9 col-xs-12">
-      <app-video-player [url]="'/api/nas/stream/' + movie.fileId"></app-video-player>
+      <app-video-player [url]="'/api/nas/stream/' + movie.file.id"></app-video-player>
     </div>
   </div>  
 

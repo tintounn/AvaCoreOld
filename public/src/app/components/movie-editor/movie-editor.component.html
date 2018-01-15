@@ -2,11 +2,11 @@
 	<section class="form-block">
 		<div class="form-group">
 			<label for="movieUrlInput">Movie's url</label>
-			<input type="text" name="movieUrlInput" id="movieUrlInput" [(ngModel)]="movie.url" placeholder="Enter value here" size="45">
+			<input type="text" name="movieUrlInput" id="movieUrlInput" [(ngModel)]="movie.file.url" placeholder="Enter value here" size="45">
 		</div>
 		<div class="form-group">
 			<label for="movieNameInput">Movie's name</label>
-			<input type="text" name="movieNameInput" id="movieNameInput" [(ngModel)]="movie.name" placeholder="Enter value here" size="45">
+			<input type="text" name="movieNameInput" id="movieNameInput" [(ngModel)]="movie.file.name" placeholder="Enter value here" size="45">
 			<a (click)="search()" class="btn btn-primary">Search</a>
 		</div>
 		<div class="form-group">

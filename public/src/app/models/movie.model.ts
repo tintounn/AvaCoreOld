@@ -3,25 +3,21 @@ import { Observable } from 'rxjs/Rx';
 import {RequestService} from "../services/request.service";
 import { File } from "./file.model";
 
-export class Movie extends File {
+export class Movie {
   
   public id: string;
   public image: string;
   public description: string;
   public releaseDate: string;
+  public file: File = new File();
 
   constructor(data?: any) {
-    if(data) {
-      super(data.file);
-    } else {
-      super();
-    }
-
     if(data) {
       this.id = data._id;
       this.image = data.image;
       this.description = data.description;
       this.releaseDate = data.releaseDate;
+      this.file = new File(data.file);
     }
   }
 }
@@ -43,8 +39,8 @@ export class MovieFactory {
     return this.requestService.get('/movies/' + id).then((response) => new Movie(response.json().movie));
   }
 
-  public findAll() : Promise<Movie[]> {
-    return this.requestService.get('/movies').then((response) => response.json().movies.map((elt) => {return new Movie(elt)}));
+  public findAll(searchValue: string = "") : Promise<Movie[]> {
+    return this.requestService.get('/movies?search=' + searchValue).then((response) => response.json().movies.map((elt) => {return new Movie(elt)}));
   }
 
   public update(movie: Movie) : Promise<Movie> {

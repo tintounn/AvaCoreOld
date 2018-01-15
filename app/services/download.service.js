@@ -19,9 +19,9 @@ class DownloadService {
       let download =  Object.create(this.queue[this.nbDownloadInProgress]);
       this.nbDownloadInProgress++;
 
-      let writeStream = fs.createWriteStream(download.file.path);
+      let writeStream = fs.createWriteStream(download.path);
       let lastInterval = 0, downloaded = 0, progressInterval;
-      let options = { method:'get', url: download.file.url };
+      let options = { method:'get', url: download.url };
       let req = request(options);
 
       req.on('data', (chunck) => {
@@ -34,30 +34,30 @@ class DownloadService {
         lastInterval = downloaded;
 
         let speed = intervalDiff;
-        let progression = (100.0 * downloaded / download.file.size).toFixed(2);
+        let progression = (100.0 * downloaded / download.size).toFixed(2);
 
-        ava.admins.emit('download:progression', {_id: download.file._id, speed: speed, progression: progression});
+        ava.admins.emit('download:progression', {_id: download._id, speed: speed, progression: progression});
       }, 1000);
 
-      writeStream.on('finish', () => {
+      req.on('end', () => {
         ava.log.info('Finish');
-        writeStream.close();
+        writeStream.end();
         this.next(download);
         clearInterval(progressInterval);
+        ava.admins.emit('download:finish', {_id: download._id});
+        ava.admins.emit('notification', {level: 'success', data: download})
       });
 
       /** Network error */
       req.on('error', (err) => {
-        ava.log.error(err);
-        fs.unlink(download.file.path);
+        this.onDownloadError(download);
         this.next(download);
         clearInterval(progressInterval);
       });
 
       /** WriteStream error */
       writeStream.on('error', (err) => {
-        ava.log.error(err);
-        fs.unlink(download.file.path);
+        this.onDownloadError(download);
         this.next(download);
         clearInterval(progressInterval);
       });
@@ -65,6 +65,12 @@ class DownloadService {
     } else {
       console.log('Download queue full !');
     }
+  }
+
+  onDownloadError(download) {
+    ava.log.error(err);
+    download.remove();
+    fs.unlink(download.path);
   }
 
   onDownloadProgress(progress) {

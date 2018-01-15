@@ -58,7 +58,6 @@ class RoomController {
 
   static findAll(req, res) {
     Room.find().then((rooms) => {
-      console.log(rooms);
       res.status(200).json({rooms: rooms});
     }).catch((err) => {
       res.status(500).json(err);

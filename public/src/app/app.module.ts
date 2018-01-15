@@ -35,6 +35,7 @@ import { SizePipe } from './pipes/size.pipe';
 import { MovieCardComponent } from './components/movie-card/movie-card.component';
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
 import { MovieComponent } from './pages/movie/movie.component';
+import { SearchBarComponent } from './components/search-bar/search-bar.component';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { MovieComponent } from './pages/movie/movie.component';
     SizePipe,
     MovieCardComponent,
     VideoPlayerComponent,
-    MovieComponent
+    MovieComponent,
+    SearchBarComponent
   ],
   imports: [
     BrowserModule,

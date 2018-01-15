@@ -8,5 +8,6 @@ module.exports = {
     parent: { type: Schema.Types.ObjectId, ref: 'Folder' },
     folders: [{ type: Schema.Types.ObjectId, ref: 'Folder' }],
     files: [{ type: Schema.Types.ObjectId, ref: 'File' }]
-  }
+  },
+  hooks: []
 };

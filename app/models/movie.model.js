@@ -8,5 +8,6 @@ module.exports = {
     popularity: Number,
     description: String,
     file: { type: Schema.Types.ObjectId, ref: 'File' },
-  }
+  },
+  hooks: []
 };

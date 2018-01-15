@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Movie } from '../../models/movie.model';
 import { ClrModal } from '@clr/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nas',
@@ -9,19 +10,13 @@ import { ClrModal } from '@clr/angular';
 })
 export class NasComponent implements OnInit {
 
-  @ViewChild('movieEditorModal') roomEditorModal: ClrModal;
-
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
-  onMovieSaved(movie: Movie) {
-    this.roomEditorModal.close();
-  }
-
-  openMovieEditorModal() {
-    this.roomEditorModal.open();
+  onMovieClicked(movie: Movie) {
+    this.router.navigate(['/movie', movie.id]);
   }
 
 }

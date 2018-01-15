@@ -7,5 +7,6 @@ module.exports = {
     time: String,
     days: String,
     room: { type: Schema.Types.ObjectId, ref: 'Room' },
-  }
+  },
+  hooks: []
 };
