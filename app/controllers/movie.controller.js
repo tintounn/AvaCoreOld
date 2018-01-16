@@ -36,7 +36,7 @@ class MovieController {
   static movieDb(req, res) {
     let value = req.params.value;
 
-    Tmdbservice.find(value).then((result) => {
+    Tmdbservice.searchMovie(value).then((result) => {
       res.status(200).json({result: result});
     }).catch((err) => {
       ava.log.error(err);
@@ -68,7 +68,7 @@ class MovieController {
     let query = {};
 
     if(value) {
-      query = {'lowerName': { $regex: '^'+ value } };
+      query = {'lowerName': { $regex: '^' + value + '^' } };
     }
 
     File.find(query).then((files) => {

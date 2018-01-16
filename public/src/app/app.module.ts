@@ -36,6 +36,11 @@ import { MovieCardComponent } from './components/movie-card/movie-card.component
 import { VideoPlayerComponent } from './components/video-player/video-player.component';
 import { MovieComponent } from './pages/movie/movie.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { SerieEditorComponent } from './components/serie-editor/serie-editor.component';
+import { SerieWizardComponent } from './components/serie-wizard/serie-wizard.component';
+import { SeasonEditorComponent } from './components/season-editor/season-editor.component';
+import { EpisodeEditorComponent } from './components/episode-editor/episode-editor.component';
+import { SeriesListComponent } from './components/series-list/series-list.component';
 
 
 @NgModule({
@@ -62,7 +67,12 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     MovieCardComponent,
     VideoPlayerComponent,
     MovieComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    SerieEditorComponent,
+    SerieWizardComponent,
+    SeasonEditorComponent,
+    EpisodeEditorComponent,
+    SeriesListComponent
   ],
   imports: [
     BrowserModule,
