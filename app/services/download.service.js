@@ -16,10 +16,10 @@ class DownloadService {
 
   process() {
     if(this.nbDownloadInProgress < 5 && this.queue.length > this.nbDownloadInProgress) {
-      let download =  Object.create(this.queue[this.nbDownloadInProgress]);
+      let download =  this.queue[this.nbDownloadInProgress];
       this.nbDownloadInProgress++;
 
-      let writeStream = fs.createWriteStream(download.path);
+      let writeStream = fs.createWriteStream(download.path);;
       let lastInterval = 0, downloaded = 0, progressInterval;
       let options = { method:'get', url: download.url };
       let req = request(options);
@@ -39,18 +39,21 @@ class DownloadService {
         ava.admins.emit('download:progression', {_id: download._id, speed: speed, progression: progression});
       }, 1000);
 
-      req.on('end', () => {
-        ava.log.info(download.name + " downloaded.");
-        writeStream.end();
-        this.next(download);
-        clearInterval(progressInterval);
-
-        ava.admins.emit('download:finish', {_id: download._id});
-        Notificationservice.send('success', download.name + ' is downloaded !');
+      req.on('end', (err) => {
+        if(!err) {
+          ava.log.info(download.name + " downloaded.");
+          writeStream.end();
+          this.next(download);
+          clearInterval(progressInterval);
+  
+          ava.admins.emit('download:finish', {_id: download._id});
+          Notificationservice.send('success', download.name + ' is downloaded !');
+        }
       });
 
       /** Network error */
       req.on('error', (err) => {
+        writeStream.end();
         this.onDownloadError(download, err);
         this.next(download);
         clearInterval(progressInterval);
@@ -58,13 +61,12 @@ class DownloadService {
 
       /** WriteStream error */
       writeStream.on('error', (err) => {
+        req.abort();
+        clearInterval(progressInterval);
         this.onDownloadError(download, err);
         this.next(download);
-        clearInterval(progressInterval);
       });
 
-    } else {
-      console.log('Download queue full !');
     }
   }
 
@@ -73,7 +75,9 @@ class DownloadService {
     Notificationservice.send('danger', 'Error when downloading ' + download.name + ' see log for more detail');
 
     download.remove();
-    fs.unlink(download.path);
+    fs.unlink(download.path, (err) => {
+      ava.log.warning(err);
+    });
   }
 
   onDownloadProgress(progress) {

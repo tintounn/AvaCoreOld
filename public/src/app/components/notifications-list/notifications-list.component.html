@@ -1,4 +1,5 @@
 <button (click)="removeAllNotifications()" class="btn btn-danger-outline btn-block btn-sm">Remove all !</button>
+<hr>
 <div *ngFor="let notification of notifications">
   <div class="alert alert-{{notification.level}}">
     <div class="alert-items">
