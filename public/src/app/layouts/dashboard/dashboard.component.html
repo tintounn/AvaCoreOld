@@ -5,10 +5,15 @@
 			<span class="title">Project Ava</span>
 		</a>
 	</div>
-	<div class="header-actions">
-		<a class="nav-link nav-icon">
-			<clr-icon shape="bell"></clr-icon>
-		</a>
+	<div class="header-actions">	
+		<clr-signpost>
+			<a class="nav-link nav-icon" (click)="notificationsOpened()">
+				<clr-icon shape="bell" [class.has-badge-info]="haveNotification" clrSignpostTrigger></clr-icon>
+			</a>
+			<clr-signpost-content [clrPosition]="'bottom-left'" *clrIfOpen>
+				<app-notifications-list></app-notifications-list>
+			</clr-signpost-content>
+		</clr-signpost>
 		<a class="nav-link nav-icon">
 			<clr-icon shape="cog"></clr-icon>
 		</a>
@@ -25,8 +30,8 @@
 		</a>
 		
 		<clr-vertical-nav-group routerLinkActive="active">
-				<clr-icon clrVerticalNavIcon shape="hard-disk"></clr-icon>
-				NAS <span class="badge badge-info">1</span>
+			<clr-icon clrVerticalNavIcon shape="hard-disk"></clr-icon>
+			NAS <span class="badge badge-info">1</span>
 			<clr-vertical-nav-group-children>
 				<a clrVerticalNavLink routerLink="/nas" routerLinkActive="active">
 					Browse
@@ -36,7 +41,7 @@
 				</a>
 			</clr-vertical-nav-group-children>
 		</clr-vertical-nav-group>
-
+		
 		<a clrVerticalNavLink routerLink="/drone">
 			<clr-icon clrVerticalNavIcon shape="dna"></clr-icon>
 			Drone <span class="badge">1</span>

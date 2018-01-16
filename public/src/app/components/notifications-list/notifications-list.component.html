@@ -1,3 +1,15 @@
-<p>
-  notifications-list works!
-</p>
+<button (click)="removeAllNotifications()" class="btn btn-danger-outline btn-block btn-sm">Remove all !</button>
+<div *ngFor="let notification of notifications">
+  <div class="alert alert-{{notification.level}}">
+    <div class="alert-items">
+      <div class="alert-item static">
+        <span class="alert-text">
+          {{notification.msg}}
+        </span>
+      </div>
+    </div>
+    <button type="button" class="close" aria-label="Close">
+      <clr-icon aria-hidden="true" shape="close"></clr-icon>
+    </button>
+  </div>
+</div>

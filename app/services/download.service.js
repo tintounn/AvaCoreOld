@@ -40,24 +40,25 @@ class DownloadService {
       }, 1000);
 
       req.on('end', () => {
-        ava.log.info('Finish');
+        ava.log.info(download.name + " downloaded.");
         writeStream.end();
         this.next(download);
         clearInterval(progressInterval);
+
         ava.admins.emit('download:finish', {_id: download._id});
-        ava.admins.emit('notification', {level: 'success', data: download})
+        Notificationservice.send('success', download.name + ' is downloaded !');
       });
 
       /** Network error */
       req.on('error', (err) => {
-        this.onDownloadError(download);
+        this.onDownloadError(download, err);
         this.next(download);
         clearInterval(progressInterval);
       });
 
       /** WriteStream error */
       writeStream.on('error', (err) => {
-        this.onDownloadError(download);
+        this.onDownloadError(download, err);
         this.next(download);
         clearInterval(progressInterval);
       });
@@ -67,8 +68,10 @@ class DownloadService {
     }
   }
 
-  onDownloadError(download) {
+  onDownloadError(download, err) {
     ava.log.error(err);
+    Notificationservice.send('danger', 'Error when downloading ' + download.name + ' see log for more detail');
+
     download.remove();
     fs.unlink(download.path);
   }
