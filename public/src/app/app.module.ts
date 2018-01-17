@@ -37,10 +37,14 @@ import { VideoPlayerComponent } from './components/video-player/video-player.com
 import { MovieComponent } from './pages/movie/movie.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { SerieEditorComponent } from './components/serie-editor/serie-editor.component';
-import { SerieWizardComponent } from './components/serie-wizard/serie-wizard.component';
 import { SeasonEditorComponent } from './components/season-editor/season-editor.component';
 import { EpisodeEditorComponent } from './components/episode-editor/episode-editor.component';
 import { SeriesListComponent } from './components/series-list/series-list.component';
+import { SerieFactory } from './models/serie.model';
+import { SeasonFactory } from './models/season.model';
+import { SerieComponent } from './pages/serie/serie.component';
+import { SerieCardComponent } from './components/serie-card/serie-card.component';
+import { EpisodeCardComponent } from './components/episode-card/episode-card.component';
 
 
 @NgModule({
@@ -69,10 +73,12 @@ import { SeriesListComponent } from './components/series-list/series-list.compon
     MovieComponent,
     SearchBarComponent,
     SerieEditorComponent,
-    SerieWizardComponent,
     SeasonEditorComponent,
     EpisodeEditorComponent,
-    SeriesListComponent
+    SeriesListComponent,
+    SerieComponent,
+    SerieCardComponent,
+    EpisodeCardComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +88,7 @@ import { SeriesListComponent } from './components/series-list/series-list.compon
     ClarityModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [RequestService, RoomFactory, MovieFactory, FileFactory, SocketService],
+  providers: [RequestService, RoomFactory, MovieFactory, FileFactory, SocketService, SerieFactory, SeasonFactory],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

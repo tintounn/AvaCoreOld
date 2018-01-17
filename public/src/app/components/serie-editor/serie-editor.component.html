@@ -1,4 +1,4 @@
-<form #movieForm="ngForm">
+<form #serieForm="ngForm">
   <section class="form-block">
     <div class="form-group">
       <label for="serieNameInput">Serie's name</label>
@@ -6,17 +6,17 @@
       <a (click)="search()" class="btn btn-primary">Search</a>
     </div>
     <div class="form-group">
-      <label for="movieImageInput">Serie's image</label>
-      <input type="text" name="movieImageInput" id="movieImageInput" [(ngModel)]="movie.image" placeholder="Enter value here" size="45">
+      <label for="serieImageInput">Serie's image</label>
+      <input type="text" name="serieImageInput" id="serieImageInput" [(ngModel)]="serie.image" placeholder="Enter value here" size="45">
     </div>
     <div class="form-group">
-      <label for="movieDateInput">Serie's release date</label>
-      <input type="date" name="movieDateInput" id="movieDateInput" [(ngModel)]="movie.releaseDate" placeholder="Enter value here" size="45">
+      <label for="serieFirstAirDateInput">Serie's first air date</label>
+      <input type="date" name="serieFirstAirDateInput" id="serieFirstAirDateInput" [(ngModel)]="serie.firstAirDate" placeholder="Enter value here" size="45">
     </div>
     
     <div class="form-group">
-      <label for="movieDescriptionInput">Serie's description</label>
-      <textarea id="movieDescriptionInput" [(ngModel)]="movie.description" name="movieDescriptionInput" rows="5"></textarea>
+      <label for="serieDescriptionInput">Serie's description</label>
+      <textarea id="serieDescriptionInput" [(ngModel)]="serie.description" name="serieDescriptionInput" rows="5"></textarea>
     </div>
     
     <button (click)="onSubmit()" class="btn btn-primary">Save</button>

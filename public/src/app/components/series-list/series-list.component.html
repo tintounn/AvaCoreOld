@@ -8,4 +8,9 @@
     </div>
   </div>
 
-  <app-serie-wizard #serieWizard></app-serie-wizard>
+  <clr-modal #serieEditorModal>
+    <h3 class="modal-title">Edit a serie</h3>
+    <div class="modal-body">
+      <app-serie-editor (saved)="onSerieSaved($event)"></app-serie-editor>
+    </div>
+  </clr-modal>

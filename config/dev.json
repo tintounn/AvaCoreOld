@@ -24,10 +24,8 @@
   "nas": {
     "root": "./files",
     "queueSize": 5,
-    "music": null,
-    "movie": "/movies",
-    "picture": null,
-    "game": null
+    "movies": "/movies",
+    "series": "/series"
   },
   "secret": "secrethash"
 }

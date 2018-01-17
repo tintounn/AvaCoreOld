@@ -32,5 +32,34 @@ export class SerieFactory {
 
   constructor(private requestService: RequestService) {}
 
-  
+  public findAll():Promise<Serie[]> {
+    return this.requestService.get('/series').then((response) => response.json().series.map((elt) => {return new Serie(elt)}));
+  }
+
+  public find(id: string):Promise<Serie> {
+    return this.requestService.get('/series/'+id).then((response) => {return new Serie(response.json().serie)});
+  }
+
+  public create(serie: Serie):Promise<Serie> {
+    return this.requestService.post('/series', serie).then((response) => {return new Serie(response.json().serie)});
+  }
+
+  public update(serie: Serie):Promise<Serie> {
+    return this.requestService.put('/series/'+serie.id, serie).then((response) => {return new Serie(response.json().serie)});
+  }
+
+  public remove(id: string):Promise<any> {
+    return this.requestService.delete('/series/'+id);
+  }
+
+  public createOrUpdate(serie: Serie):Promise<Serie> {
+    let promise;
+    if(serie.id) {
+      promise = this.update(serie);
+    } else {
+      promise = this.create(serie);
+    }
+
+    return promise;
+  }
 }

@@ -1,4 +1,6 @@
 const Schema = require('mongoose').Schema;
+const fs = require('fs');
+const path = require('path');
 
 module.exports = {
   name: "File",
@@ -13,8 +15,13 @@ module.exports = {
   hooks: [
     {
       type: 'pre', action: 'remove', func: function(next) {
-        Movie.remove({file: this._id}).exec();
-        next();
+        fs.unlink(this.path, (err) => {
+          if(err) {
+            ava.log.warning(err);
+          }
+
+          next();
+        });
       }
     },
     {

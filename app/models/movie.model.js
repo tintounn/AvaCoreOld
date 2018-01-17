@@ -9,5 +9,15 @@ module.exports = {
     description: String,
     file: { type: Schema.Types.ObjectId, ref: 'File' },
   },
-  hooks: []
+  hooks: [
+    {
+      type: 'pre', action: 'remove', func: function(next) {
+        this.file.remove().then(() => {
+          next();
+        }).catch((err) => {
+          next(new Error(err));
+        });
+      }
+    },
+  ]
 };

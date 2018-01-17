@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { SerieWizardComponent } from '../serie-wizard/serie-wizard.component';
+import { ClrModal } from '@clr/angular';
+import { Serie } from '../../models/serie.model';
 
 @Component({
   selector: 'app-series-list',
@@ -8,7 +9,7 @@ import { SerieWizardComponent } from '../serie-wizard/serie-wizard.component';
 })
 export class SeriesListComponent implements OnInit {
 
-  @ViewChild("serieWizard") serieWizard: SerieWizardComponent;
+  @ViewChild("serieEditorModal") serieEditorModal: ClrModal;
 
   constructor() { }
 
@@ -16,6 +17,10 @@ export class SeriesListComponent implements OnInit {
   }
 
   openSerieWizard() {
-    this.serieWizard.open();
+    this.serieEditorModal.open();
+  }
+
+  onSerieSaved(serie: Serie) {
+    this.serieEditorModal.close();
   }
 }

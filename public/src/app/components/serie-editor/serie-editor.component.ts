@@ -16,4 +16,13 @@ export class SerieEditorComponent implements OnInit {
   ngOnInit() {
   }
 
+  onSubmit() {
+    this.serieFactory.createOrUpdate(this.serie).then((serie) => {
+      console.log(serie);
+      this.savedEvent.emit(serie);
+    }).catch((err) => {
+      console.error(err);
+    });
+  }
+
 }
