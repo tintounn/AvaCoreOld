@@ -22,3 +22,26 @@
     <button (click)="onSubmit()" class="btn btn-primary">Save</button>
   </section>
 </form>
+
+<clr-modal [clrModalSize]="'xl'" #tmdbModal>
+    <h3 class="modal-title">Select a serie</h3>
+    <div class="modal-body">
+      <div class="row">
+        <div *ngFor="let item of series" class="col-md-4 col-sm-6 col-xs-12">
+          <a class="card clickable" (click)="onSerieSelected(item)">
+            <div class="card-img">
+              <img src="{{imgUrl + item.poster_path}}" alt="..." />
+            </div>
+            <div class="card-header">
+              <p>{{item.name}}</p>
+            </div>
+            <div class="card-block">
+              <h4 class="card-text">
+                {{item.overview}}
+              </h4>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </clr-modal>

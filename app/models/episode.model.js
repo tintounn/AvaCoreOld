@@ -6,6 +6,7 @@ module.exports = {
   name: "Episode",
   schema: {
     number: Number,
+    description: String,
     image: String,
     file: { type: Schema.Types.ObjectId, ref: 'File' },
     season: { type: Schema.Types.ObjectId, ref: 'Season' },

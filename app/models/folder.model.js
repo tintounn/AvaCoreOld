@@ -26,11 +26,12 @@ module.exports = {
     },
     {
       type: 'pre', action: 'save', func: function(next) {
-        this.path = path.join(ava.config.get('nas:root'), ava.config.get('nas:series'), '/', this.name);
         this.lowerName = this.name.toLowerCase();
         fs.mkdir(this.path, (err) => {
           if(err) {
-            next(new Error(err));
+            if(err.code != 'EEXIST') {
+              next(new Error(err));
+            }
           } else {
             next();
           }

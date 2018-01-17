@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Serie } from '../../models/serie.model';
 
 @Component({
   selector: 'app-serie-card',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./serie-card.component.css']
 })
 export class SerieCardComponent implements OnInit {
+
+  @Input('serie') serie: Serie;
 
   constructor() { }
 

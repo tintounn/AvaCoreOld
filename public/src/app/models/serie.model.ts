@@ -32,8 +32,12 @@ export class SerieFactory {
 
   constructor(private requestService: RequestService) {}
 
-  public findAll():Promise<Serie[]> {
-    return this.requestService.get('/series').then((response) => response.json().series.map((elt) => {return new Serie(elt)}));
+  public findAll(searchValue: string):Promise<Serie[]> {
+    return this.requestService.get('/series?search=' + searchValue).then((response) => response.json().series.map((elt) => {return new Serie(elt)}));
+  }
+
+  public search(value: string) : Promise<any> {
+    return this.requestService.post('/series/search/' + value, {}).then((response) => response.json().result);
   }
 
   public find(id: string):Promise<Serie> {

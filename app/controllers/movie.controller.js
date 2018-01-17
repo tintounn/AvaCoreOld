@@ -68,7 +68,7 @@ class MovieController {
     let query = {};
 
     if(value) {
-      query = {'lowerName': { $regex: '^' + value + '^' } };
+      query = {'lowerName': { $regex: '^' + value } };
     }
 
     File.find(query).then((files) => {

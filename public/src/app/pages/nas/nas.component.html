@@ -10,7 +10,7 @@
   <clr-tab>
     <button clrTabLink>Series</button>
     <clr-tab-content *clrIfActive>
-      <app-series-list></app-series-list>
+      <app-series-list (serieClicked)="onSerieClicked($event)"></app-series-list>
     </clr-tab-content>
   </clr-tab>
   <clr-tab>

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Movie } from '../../models/movie.model';
 import { ClrModal } from '@clr/angular';
 import { Router } from '@angular/router';
+import { Serie } from '../../models/serie.model';
 
 @Component({
   selector: 'app-nas',
@@ -17,6 +18,10 @@ export class NasComponent implements OnInit {
 
   onMovieClicked(movie: Movie) {
     this.router.navigate(['/movie', movie.id]);
+  }
+
+  onSerieClicked(serie: Serie) {
+    this.router.navigate(['/serie', serie.id]);
   }
 
 }

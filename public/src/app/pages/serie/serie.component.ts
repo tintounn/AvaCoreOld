@@ -14,6 +14,11 @@ export class SerieComponent implements OnInit {
   constructor(private route: ActivatedRoute, private serieFactory: SerieFactory) { }
 
   ngOnInit() {
+    this.serieFactory.find(this.route.snapshot.params['id']).then((serie) => {
+      this.serie = serie;
+    }).catch((err) => {
+      console.error(err);
+    });
   }
 
 }

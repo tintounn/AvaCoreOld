@@ -31,6 +31,7 @@ export class MovieEditorComponent implements OnInit {
   }
 
   onMovieSelected(movie) {
+    this.movie.file.name = movie.title;
     this.movie.image = this.imgUrl + movie.poster_path;
     this.movie.description = movie.overview;
     this.movie.releaseDate = movie.release_date;
