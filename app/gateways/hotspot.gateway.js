@@ -11,7 +11,7 @@ class HopSpotGateway extends EventEmitter {
   }
 
   listen(http) {
-    this.io = new Server();
+    this.io = new Server(http);
     this.io.attach(http);
     this.io.listen(this.port);
   
@@ -33,15 +33,22 @@ class HopSpotGateway extends EventEmitter {
   }
 
   handleOnNewConnection(socket) {
-    let object = new HotSpotDevice(socket.id, this);
-    this.devices.push(object);
+    let device = new HotSpotDevice(socket.id, this, '');
+    this.devices.push(device);
 
-    socket.on('disconnect', () => this.handleOnCloseConnection(object));
+    this.emit('connection', device);
+
+    ava.log.info(`Hotspot connected: ${socket.id}`);
+    socket.on('disconnect', () => this.handleOnCloseConnection(device));
   }
 
-  handleOnCloseConnection(object) {
-    let index = this.devices.indexOf(object);
+  handleOnCloseConnection(device) {
+    let index = this.devices.indexOf(device);
     this.devices.splice(index, 1);
+
+    ava.log.info(`Hotspot disconnected: ${device.nodeId}`);
+
+    this.emit('disconnect', device);
   }
 }
 

@@ -9,7 +9,7 @@ export class SocketService {
   constructor() { }
 
   init() {
-    this.socket = io("", {transports: ['websocket']});
+    this.socket = io("/admins", {transports: ['websocket'], path: '/admins'});
   }
 
   getSocket() : any {

@@ -14,7 +14,7 @@ class MovieController {
     let data = req.body;
 
     Downloadservice.getDownloadHeader(data.file.url).then((stat) => {
-      let file = new File({size: stat.size, url: data.file.url, name: data.file.name, path: ava.config.get('nas:root') + ava.config.get('nas:movie') + '/' + stat.name});
+      let file = new File({size: stat.size, url: data.file.url, name: data.file.name, path: ava.config.get('nas:root') + ava.config.get('nas:movies') + '/' + stat.name});
       let movie = new Movie({releaseDate: data.releaseDate, image: data.image, popularity: data.popularity, file: file._id, description: data.description});
 
       file.save().then((file) => {

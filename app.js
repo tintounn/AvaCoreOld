@@ -125,6 +125,7 @@ class App {
   initSocketServer() {
     return new Promise((resolve, reject) => {
       this.admins = new Server();
+      this.admins.path('/admins');
       this.admins.listen(this.httpServer);
 
       resolve();
@@ -144,14 +145,10 @@ class App {
   }
 
   initFinalSteps() {
-    //this.zwaveGateway.listen();
-
     return new Promise((resolve, reject) => {
-      /*Room.findAll().then((rooms) => {
-        HomeService.launch(rooms);
-        
-      }).catch(reject);*/
-      resolve();
+      Room.find().then((rooms) => {
+        Homeservice.launch(rooms);
+      }).catch(reject);
     });
   }
 }

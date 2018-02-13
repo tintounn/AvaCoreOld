@@ -1,0 +1,27 @@
+<a class="card clickable">
+  <div class="card-header">
+    {{device.name}}
+  </div>
+  <div class="card-block">
+    <div class="card-text">
+      <div *ngFor="let action of device.actions">
+        <div class="row">
+          <div *ngIf="action.type == 'text'">
+            <div class="col-xs-8">
+              <input [(ngModel)]="device.props[action.prop]" style="width: 100%; display: block;" type="text">
+            </div>
+            <div class="col-xs-4">
+              <button (click)="setValue(action)" class="btn btn-outline">{{action.method}}</button>
+            </div>
+          </div>
+
+          <div *ngIf="action.type == 'button'">
+            <div class="col-xs-12">
+              <button (click)="setValue(action)" class="btn btn-outline btn-block">{{action.method}}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</a>

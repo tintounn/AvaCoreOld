@@ -45,6 +45,10 @@ import { SeasonFactory } from './models/season.model';
 import { SerieComponent } from './pages/serie/serie.component';
 import { SerieCardComponent } from './components/serie-card/serie-card.component';
 import { EpisodeCardComponent } from './components/episode-card/episode-card.component';
+import { DevicesListComponent } from './components/devices-list/devices-list.component';
+import { DeviceCardComponent } from './components/device-card/device-card.component';
+import {DeviceFactory} from "./models/device.model";
+import { ColorPaletteComponent } from './components/color-palette/color-palette.component';
 
 
 @NgModule({
@@ -78,7 +82,10 @@ import { EpisodeCardComponent } from './components/episode-card/episode-card.com
     SeriesListComponent,
     SerieComponent,
     SerieCardComponent,
-    EpisodeCardComponent
+    EpisodeCardComponent,
+    DevicesListComponent,
+    DeviceCardComponent,
+    ColorPaletteComponent
   ],
   imports: [
     BrowserModule,
@@ -88,7 +95,7 @@ import { EpisodeCardComponent } from './components/episode-card/episode-card.com
     ClarityModule.forRoot(),
     AppRoutingModule
   ],
-  providers: [RequestService, RoomFactory, MovieFactory, FileFactory, SocketService, SerieFactory, SeasonFactory],
+  providers: [RequestService, RoomFactory, MovieFactory, FileFactory, SocketService, SerieFactory, SeasonFactory, DeviceFactory],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

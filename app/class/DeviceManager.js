@@ -16,6 +16,11 @@ class DeviceManager {
     }
   }
 
+  /**
+   *
+   * @param nodeId
+   * @returns {*}
+   */
   getDeviceByNodeId(nodeId) {
     for (let device of this.devices) {
       if (device.nodeId == nodeId) {
@@ -24,6 +29,11 @@ class DeviceManager {
     }
   }
 
+  /**
+   *
+   * @param categories
+   * @returns {Array}
+   */
   getDevicesByCategories(categories) {
     let devices = [];
 
@@ -34,6 +44,11 @@ class DeviceManager {
     return devices;
   }
 
+  /**
+   *
+   * @param category
+   * @returns {Array}
+   */
   getDevicesByCategory(category) {
     let devices = [];
 

@@ -1,23 +1,15 @@
 const Device = require('./Device');
+const HotSpotCategory = require('./categories/hotspot.category');
+const RGBCategory = require('./categories/rgb.category');
 
 class HotSpotDevice extends Device {
   constructor(nodeId, gateway, location) {
-    super(nodeId, ['Hotspot'], gateway, location);
-    this.urlPlayed = '';
-    this.actions = {
-      'play': {
-        type: 'text',
-        method: 'play'
-      },
-      'say': {
-        type: 'text',
-        method: 'say'
-      },
-      'stop': {
-        type: 'button',
-        method: 'stop'
-      }
-    };
+    super(nodeId, ['Hotspot', 'RGB'], gateway, location);
+
+    HotSpotCategory.import(this);
+    RGBCategory.import(this);
+
+    this.name = "HotSpot";
   }
 
   play(url) {
@@ -32,8 +24,16 @@ class HotSpotDevice extends Device {
     this.gateway.sendValue(this.nodeId, 'stop');
   }
 
-  refreshValues() {
-    
+  on() {
+    this.gateway.sendValue(this.nodeId, 'setColor', {r: 255, g: 255, b: 255});
+  }
+
+  off() {
+    this.gateway.sendValue(this.nodeId, 'setColor', {r: 0, g: 0, b: 0});
+  }
+
+  setCustomColor(color) {
+    this.gateway.sendValue(this.nodeId, 'setColor', color);
   }
 }
 

@@ -1,12 +1,18 @@
 //const ZwaveObject = require('../class/ZwaveObject');
 const DeviceManager = require('../class/DeviceManager');
 
+
 class HomeService {
   constructor() {
     this.deviceManager = new DeviceManager();
     this.rooms = [];
   }
 
+  /**
+   *
+   * @param room
+   * @returns {*}
+   */
   addRoom(room) {
     room.deviceManager = new DeviceManager();
     this.rooms.push(room);
@@ -14,11 +20,15 @@ class HomeService {
     return room;
   }
 
+  /**
+   *
+   * @param roomId
+   */
   removeRoom(roomId) {
     for(let i = 0; i < this.rooms.length; i++) {
       let room = this.rooms[i];
 
-      if(room.id == roomId) {
+      if(room._id == roomId) {
         for(let device of room.deviceManager.devices) {
           device.setLocation('');
         }
@@ -29,28 +39,51 @@ class HomeService {
     }
   }
 
+  /**
+   *
+   * @param rooms
+   */
   addRooms(rooms) {
     for(let room of rooms) {
       this.addRoom(room);
     }
   }
 
+  /**
+   *
+   * @returns {Array}
+   */
   getRooms() {
     return this.rooms;
   }
 
+  /**
+   *
+   * @param roomId
+   * @returns {*}
+   */
   getRoomById(roomId) {
     for(let room of this.rooms) {
-      if(room.id == roomId) {
+      if(room._id == roomId) {
         return room;
       }
     }
   }
 
+  /**
+   *
+   * @param roomId
+   * @returns {Array}
+   */
   getObjectsByRoom(roomId) {
     return this.getRoomById(roomId).deviceManager.devices;
   }
 
+  /**
+   *
+   * @param nodeId
+   * @param roomId
+   */
   setObjectLocation(nodeId, roomId) {
     let device = ava.deviceManager.getObjectByNodeId(nodeId);
 
@@ -64,8 +97,16 @@ class HomeService {
     device.setLocation(roomId);
   }
 
+  /**
+   *
+   * @param rooms
+   */
   launch(rooms) {
     this.addRooms(rooms);
+
+    ava.hotSpotGateway.on('connection', (device) => { this.onDeviceConnected(device) });
+
+    ava.hotSpotGateway.on('disconnect', (device) => { this.onDeviceDisconnected(device) });
 
     /*ava.zwaveGateway.on('zwave:new', (object) => {
       if(object.location != '') {
@@ -82,6 +123,20 @@ class HomeService {
 
       //Socket here
     });*/
+  }
+
+  onDeviceConnected(device) {
+    if(device.location != '') {
+      this.getRoomById(device.location).deviceManager.add(device);
+    }
+    this.deviceManager.add(device);
+  }
+
+  onDeviceDisconnected(device) {
+    if(device.location != '') {
+      this.getRoomById(device.location).deviceManager.remove(device.nodeId);
+    }
+    this.deviceManager.remove(device.nodeId);
   }
 }
 
