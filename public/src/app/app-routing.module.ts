@@ -10,9 +10,11 @@ import { NasComponent } from './pages/nas/nas.component';
 import { DownloadComponent } from './pages/download/download.component';
 import { MovieComponent } from './pages/movie/movie.component';
 import { SerieComponent } from './pages/serie/serie.component';
+import { LoginComponent } from './pages/login/login.component';
+import { AbstractComponent } from './layouts/abstract/abstract.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent, children: [
+  { path: 'admin', component: DashboardComponent, children: [
     { path: '', component: HomeComponent },
     { path: 'house', component: HouseComponent},
     { path: 'rooms/:id', component: RoomComponent},
@@ -20,7 +22,12 @@ const routes: Routes = [
     { path: 'downloads', component: DownloadComponent},
     { path: 'movie/:id', component: MovieComponent},
     { path: 'serie/:id', component: SerieComponent}
-  ]}
+  ]},
+  {
+    path: 'login', component: AbstractComponent, children: [
+      {path: '', component: LoginComponent}
+    ]
+  }
 ];
 
 @NgModule({

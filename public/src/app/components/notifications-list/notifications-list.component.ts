@@ -11,9 +11,11 @@ export class NotificationsListComponent implements OnInit {
 
   public notifications: any[] = [];
 
-  constructor(private requestService: RequestService) { }
+  constructor(private requestService: RequestService, private socketService: SocketService) { }
 
   ngOnInit() {
+    this.handleNotificationEvents();
+
     this.requestService.get('/notifications').then((data) => {
       let res = data.json();
       this.notifications = res.notifications;
@@ -22,11 +24,15 @@ export class NotificationsListComponent implements OnInit {
     });
   }
 
-  removeAllNotifications() {
-    this.requestService.delete('/notifications').then(() => {
+  private handleNotificationEvents() {
+    let socket = this.socketService.getSocket();
+
+    socket.on('notifications:added', (data) => {
+      this.notifications.push(data);
+    });
+
+    socket.on('notifications:cleared', (data) => {
       this.notifications = [];
-    }).catch((err) => {
-      console.error(err);
     });
   }
 }

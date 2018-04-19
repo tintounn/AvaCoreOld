@@ -150,6 +150,7 @@ class App {
         Homeservice.launch(rooms);
       }).catch(reject);
     });
+
   }
 }
 

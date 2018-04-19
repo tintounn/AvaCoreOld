@@ -21,7 +21,8 @@ export class HardDriveInfoComponent implements OnInit {
   }
 
   getValue(item: any) {   
-    return 100 - ((item.sizes.available/item.sizes.total) * 100);
+    return 0;
+    //return 100 - ((item.sizes.available/item.sizes.total) * 100);
   }
 
 }

@@ -49,6 +49,8 @@ import { DevicesListComponent } from './components/devices-list/devices-list.com
 import { DeviceCardComponent } from './components/device-card/device-card.component';
 import {DeviceFactory} from "./models/device.model";
 import { ColorPaletteComponent } from './components/color-palette/color-palette.component';
+import { LoginComponent } from './pages/login/login.component';
+import { TypewriterComponent } from './components/typewriter/typewriter.component';
 
 
 @NgModule({
@@ -85,7 +87,9 @@ import { ColorPaletteComponent } from './components/color-palette/color-palette.
     EpisodeCardComponent,
     DevicesListComponent,
     DeviceCardComponent,
-    ColorPaletteComponent
+    ColorPaletteComponent,
+    LoginComponent,
+    TypewriterComponent
   ],
   imports: [
     BrowserModule,

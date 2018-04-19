@@ -11,6 +11,8 @@
 				<clr-icon shape="bell" [class.has-badge-info]="haveNotification" clrSignpostTrigger></clr-icon>
 			</a>
 			<clr-signpost-content [clrPosition]="'bottom-left'" *clrIfOpen>
+				<button (click)="removeAllNotifications()" class="btn btn-danger-outline btn-block btn-sm">Remove all !</button>
+				<hr>					
 				<app-notifications-list></app-notifications-list>
 			</clr-signpost-content>
 		</clr-signpost>
@@ -24,7 +26,7 @@
 		<router-outlet></router-outlet>
 	</div>
 	<clr-vertical-nav id="vertical-nav" [clr-nav-level]="1" [clrVerticalNavCollapsible]="true" [(clrVerticalNavCollapsed)]="collapsed">
-		<a clrVerticalNavLink routerLink="/house">
+		<a clrVerticalNavLink routerLink="/admin/house">
 			<clr-icon clrVerticalNavIcon shape="home"></clr-icon>
 			House <span class="badge">1</span>
 		</a>
@@ -33,20 +35,20 @@
 			<clr-icon clrVerticalNavIcon shape="hard-disk"></clr-icon>
 			NAS <span class="badge badge-info">1</span>
 			<clr-vertical-nav-group-children>
-				<a clrVerticalNavLink routerLink="/nas" routerLinkActive="active">
+				<a clrVerticalNavLink routerLink="/admin/nas" routerLinkActive="active">
 					Browse
 				</a>
-				<a clrVerticalNavLink routerLink="/downloads" routerLinkActive="active">
+				<a clrVerticalNavLink routerLink="/admin/downloads" routerLinkActive="active">
 					Downloads
 				</a>
 			</clr-vertical-nav-group-children>
 		</clr-vertical-nav-group>
 		
-		<a clrVerticalNavLink routerLink="/drone">
+		<a clrVerticalNavLink routerLink="/admin/drone">
 			<clr-icon clrVerticalNavIcon shape="dna"></clr-icon>
 			Drone <span class="badge">1</span>
 		</a>
-		<a clrVerticalNavLink routerLink="/script">
+		<a clrVerticalNavLink routerLink="/admin/script">
 			<clr-icon clrVerticalNavIcon shape="code"></clr-icon>
 			Script <span class="badge">1</span>
 		</a>

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { SocketService } from '../../services/socket.service';
+import { RequestService } from '../../services/request.service';
+import { NotificationsListComponent } from '../../components/notifications-list/notifications-list.component';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,11 +12,11 @@ export class DashboardComponent implements OnInit {
 
   public haveNotification: boolean = false;
 
-  constructor(private socketService: SocketService) { }
+  constructor(private socketService: SocketService, private requestService: RequestService) { }
 
   ngOnInit() {
     let socket = this.socketService.getSocket();
-    socket.on('notification', (data) => {
+    socket.on('notifications:added', (data) => {
       this.haveNotification = true;
     });
   }
@@ -23,4 +25,11 @@ export class DashboardComponent implements OnInit {
     this.haveNotification = false;
   }
 
+  removeAllNotifications() {
+    this.requestService.delete('/notifications').then(() => {
+      console.log('Notifictions cleared');
+    }).catch((err) => {
+      console.error(err);
+    });
+  }
 }

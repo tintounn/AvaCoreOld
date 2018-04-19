@@ -28,7 +28,7 @@ export class HouseComponent implements OnInit {
   }
 
   onRoomClicked(room: Room) {
-    this.router.navigate(['/rooms', room.id]);
+    this.router.navigate(['/admin/rooms', room.id]);
   }
 
   onRoomSaved(room: Room) {

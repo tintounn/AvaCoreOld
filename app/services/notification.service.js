@@ -13,11 +13,12 @@ class NotificationService {
     };
 
     this.notifications.push(notification);
-    ava.admins.emit('notification', notification);
+    ava.admins.emit('notifications:added', notification);
   }
 
   clear() {
     this.notifications = [];
+    ava.admins.emit('notifications:cleared');
   }
 
   remove(index) {

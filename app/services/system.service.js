@@ -1,4 +1,4 @@
-const disk = require('diskusage');
+//const disk = require('diskusage');
 const os = require('os');
 const drivelist = require('drivelist');
 
@@ -21,7 +21,7 @@ class SystemService {
           for(let item of drives) {
             for(let mnt of item.mountpoints) {
               mountpoints.push({
-                sizes: disk.checkSync(mnt.path),
+                sizes: {},
                 description: item.description,
                 path: mnt.path
               });

@@ -13,6 +13,7 @@ class HopSpotGateway extends EventEmitter {
   listen(http) {
     this.io = new Server(http);
     this.io.attach(http);
+    this.io.path('/hotspots');
     this.io.listen(this.port);
   
     this.io.on('connection', (socket) => this.handleOnNewConnection(socket));
